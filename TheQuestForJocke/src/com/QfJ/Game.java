@@ -32,6 +32,8 @@ public class Game extends Canvas implements Runnable{
 		Dimension size = new Dimension(width*scale, height*scale);
 		setPreferredSize(size);
 		
+		screen = new Screen(width, height);
+		
 		frame = new JFrame();
 	}
 	
@@ -51,8 +53,16 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
+		long lastTime = System.nanoTime();
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
 		while(running) {
-			update();
+			long now = System.nanoTime();
+			delta += (now-lastTime) / ns;
+			while(delta >= 1) {
+				update();
+				delta--;
+			}
 			render();
 		}
 	}
@@ -67,10 +77,16 @@ public class Game extends Canvas implements Runnable{
 			createBufferStrategy(3);
 			return;
 		}
+		screen.clear();
+		screen.render();
+		
+		for(int i = 0; i < pixels.length; i++) {
+			pixels[i] = screen.pixels[i];
+		}
 		
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		g.drawImage(image,  0, 0, getWidth(), getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
