@@ -1,7 +1,12 @@
 package com.QfJ;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
@@ -15,6 +20,9 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private JFrame frame;
 	private boolean running = false;
+	
+	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	public Game() {
 		Dimension size = new Dimension(width*scale, height*scale);
@@ -40,8 +48,27 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		while(running) {
-			System.out.println("Running...");
+			update();
+			render();
 		}
+	}
+	
+	public void update() {
+		
+	}
+	
+	public void render() {
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.dispose();
+		bs.show();
 	}
 	
 	public static void main(String[] args) {
