@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.QfJ.graphics.Screen;
-
+ 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
