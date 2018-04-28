@@ -10,118 +10,97 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import com.QfJ.graphics.Screen;
- 
-public class Game extends Canvas implements Runnable{
+class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
-	public static int width = 300;
-	public static int height = width / 16 * 9;
-	public static int scale = 3;
-	public static String title = "Quest for Jocke";
+	// Variabler och objekt som behövs
+	private static int height = 300;
+	private static int width = 16 * height / 9;
+	private static int scale = 3;
 	
-	private Thread thread;
-	private JFrame frame;
-	private boolean running = false;
+	private static boolean running = false;
+	private static String title = "Quest for Jocke";
 	
-	private Screen screen;
+	private static Canvas canvas = new Canvas();
+	private static Thread thread;
+	private static BufferStrategy bs;
+	private static BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	private static int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
-	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-	
+	// Konstruktor - Ställer in JFrame:en och canvas med rätt storlek och inställningar. Körs när ett Game-objekt skapas i main metoden.
 	public Game() {
-		Dimension size = new Dimension(width*scale, height*scale);
-		setPreferredSize(size);
+		Dimension size = new Dimension(width * scale, height * scale);
 		
-		screen = new Screen(width, height);
-		
-		frame = new JFrame();
+		setSize(size);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setTitle(title);
+		setVisible(true);
+
+		canvas.setSize(size);
+		add(canvas);
 	}
 	
+	// Main metod. Här "börjar" koden.
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.start();
+	}
+	
+	// Startar spel-thread:en
 	public synchronized void start() {
 		running = true;
-		thread = new Thread(this, "Display"); 
+		thread = new Thread(this, "Display");
 		thread.start();
 	}
 	
+	// Stoppar spel-thred:en
 	public synchronized void stop() {
 		running = false;
 		try {
 			thread.join();
-		} catch(InterruptedException e){
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// Körs när spel thread:en startas
 	public void run() {
-		long lastTime = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		final double ns = 1000000000.0 / 60.0;
 		
-		double delta = 0;
-		
-		int frames = 0;
-		int updates = 0;
-		int fps = 0;
-		
+		// Kör render och update funktionerna så länge running = true
+		// Update begränsat till 60 fps, Render obegränsad
 		while(running) {
-			long now = System.nanoTime();
-			delta += (now-lastTime) / ns;
-			lastTime = now;
-			while(delta >= 1) {
-				update();
-				updates++;
-				delta--;
-			}
 			render();
-			frames++;
-			
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(title + " | " + updates + " ups, " + frames + " fps");
-				updates = 0;
-				frames = 0;
-			}
+			update();
 		}
 		stop();
 	}
 	
-	public void update() {
+	// Renderar grafik
+	public static void render() {
+		bs = canvas.getBufferStrategy();
 		
-	}
-	
-	public void render() {
-		BufferStrategy bs = getBufferStrategy();
-		if (bs == null) {
-			createBufferStrategy(3);
+		// Skapar en bufferstrategy för canvas om sådan ej finns
+		if(bs == null) {
+			canvas.createBufferStrategy(3);
 			return;
 		}
-		screen.clear();
-		screen.render();
 		
+		// Sätter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker där.
 		for(int i = 0; i < pixels.length; i++) {
-			pixels[i] = screen.pixels[i];
+			pixels[i] = Color.PINK.getRGB();
 		}
 		
+		// Renderar och visar pixel[] arrayen som innehåller en färg för varje pixel i form av en hexadecimal, dvs ett nummer.
 		Graphics g = bs.getDrawGraphics();
-		
-		g.drawImage(image,  0, 0, getWidth(), getHeight(), null);
+		g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
 	
-	public static void main(String[] args) {
-		Game game = new Game();
-		game.frame.setResizable(false);
-		game.frame.setTitle(title);
-		game.frame.add(game);
-		game.frame.pack();
-		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		game.frame.setLocationRelativeTo(null);
-		game.frame.setVisible(true);
+	// Uppdaterar spelet (player movement, game logic)
+	public static void update() {
 		
-		game.start();
 	}
-	
 }
