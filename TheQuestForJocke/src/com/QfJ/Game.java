@@ -1,5 +1,7 @@
 package com.QfJ;
 
+import com.QfJ.graphics.*;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,14 +20,16 @@ class Game extends JFrame implements Runnable{
 	private static int width = 16 * height / 9;
 	private static int scale = 3;
 	
-	private static boolean running = false;
-	private static String title = "Quest for Jocke";
+	private boolean running = false;
+	private String title = "Quest for Jocke";
 	
-	private static Canvas canvas = new Canvas();
-	private static Thread thread;
-	private static BufferStrategy bs;
-	private static BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	private static int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+	private Screen screen;
+	
+	private Canvas canvas = new Canvas();
+	private Thread thread;
+	private BufferStrategy bs;
+	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	// Konstruktor - St�ller in JFrame:en och canvas med r�tt storlek och inst�llningar. K�rs n�r ett Game-objekt skapas i main metoden.
 	public Game() {
@@ -37,7 +41,8 @@ class Game extends JFrame implements Runnable{
 		setLocationRelativeTo(null);
 		setTitle(title);
 		setVisible(true);
-
+		
+		screen = new Screen(width, height);
 		canvas.setSize(size);
 		add(canvas);
 	}
@@ -103,7 +108,7 @@ class Game extends JFrame implements Runnable{
 	}
 	
 	// Renderar grafik
-	public static void render() {
+	public void render() {
 		bs = canvas.getBufferStrategy();
 		
 		// Skapar en bufferstrategy f�r canvas om s�dan ej finns
@@ -112,9 +117,12 @@ class Game extends JFrame implements Runnable{
 			return;
 		}
 		
-		// S�tter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker d�r.
+		// renderar pixels[] i screen classen
+		screen.render();
+		
+		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
 		for(int i = 0; i < pixels.length; i++) {
-			pixels[i] = Color.PINK.getRGB();
+			pixels[i] = screen.pixels[i];
 		}
 		
 		// Renderar och visar pixel[] arrayen som inneh�ller en f�rg f�r varje pixel i form av en hexadecimal, dvs ett nummer.
@@ -125,7 +133,7 @@ class Game extends JFrame implements Runnable{
 	}
 	
 	// Uppdaterar spelet (player movement, game logic)
-	public static void update() {
+	public void update() {
 		
 	}
 }
