@@ -9,14 +9,16 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	private static int height = 300;
+	private static int height = 250;
 	private static int width = 16 * height / 9;
 	private static int scale = 3;
 	
@@ -30,6 +32,8 @@ class Game extends JFrame implements Runnable{
 	private BufferStrategy bs;
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+	
+	BufferedImage testImage = loadImage("xiange.png");
 	
 	// Konstruktor - St�ller in JFrame:en och canvas med r�tt storlek och inst�llningar. K�rs n�r ett Game-objekt skapas i main metoden.
 	public Game() {
@@ -45,6 +49,19 @@ class Game extends JFrame implements Runnable{
 		screen = new Screen(width, height);
 		canvas.setSize(size);
 		add(canvas);
+		
+	}
+	
+	private BufferedImage loadImage(String path) {
+		try {
+			BufferedImage loadedImage = ImageIO.read(Game.class.getClassLoader().getResourceAsStream(path));
+			BufferedImage formattedImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
+			return formattedImage;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}		
 	}
 	
 	// Main metod. H�r "b�rjar" koden.
@@ -100,6 +117,7 @@ class Game extends JFrame implements Runnable{
 			if(System.currentTimeMillis() - timer >= 1000) {
 				timer += 1000;
 				System.out.println(updates + " ups " + frames + " fps");
+				setTitle(title + "  |  " + updates + " ups " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
@@ -119,6 +137,7 @@ class Game extends JFrame implements Runnable{
 		
 		// renderar pixels[] i screen classen
 		screen.render();
+		screen.renderImage(testImage, 0, 0);
 		
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
 		for(int i = 0; i < pixels.length; i++) {

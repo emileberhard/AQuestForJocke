@@ -1,6 +1,8 @@
 package com.QfJ.graphics;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 public class Screen{
 	
@@ -15,7 +17,9 @@ public class Screen{
 	
 	public void render() {
 		for(int y = 0; y < height; y++) {
+			if(y < 0 || y >= height) break;
 			for(int x = 0; x < width; x++) {
+				if(x < 0 || x >= width) break;
 				pixels[x + y * width] = Color.yellow.getRGB();
 			}
 		}
@@ -24,6 +28,16 @@ public class Screen{
 	public void clear() {
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
+		}
+	}
+	
+	public void renderImage(BufferedImage image, int xPos, int yPos) {
+		int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		
+		for(int y = 0; y < image.getHeight(); y++) {
+			for(int x = 0; x < image.getWidth(); x++) {
+				pixels[(x + xPos) + (yPos + y) * width] = imagePixels[x + y * image.getWidth()];
+			}
 		}
 	}
 }
