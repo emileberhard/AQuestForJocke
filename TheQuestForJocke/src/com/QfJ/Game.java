@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
-	// Variabler och objekt som behövs
+	// Variabler och objekt som behï¿½vs
 	private static int height = 300;
 	private static int width = 16 * height / 9;
 	private static int scale = 3;
@@ -27,7 +27,7 @@ class Game extends JFrame implements Runnable{
 	private static BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private static int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
-	// Konstruktor - Ställer in JFrame:en och canvas med rätt storlek och inställningar. Körs när ett Game-objekt skapas i main metoden.
+	// Konstruktor - Stï¿½ller in JFrame:en och canvas med rï¿½tt storlek och instï¿½llningar. Kï¿½rs nï¿½r ett Game-objekt skapas i main metoden.
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		
@@ -42,7 +42,7 @@ class Game extends JFrame implements Runnable{
 		add(canvas);
 	}
 	
-	// Main metod. Här "börjar" koden.
+	// Main metod. Hï¿½r "bï¿½rjar" koden.
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
@@ -65,14 +65,39 @@ class Game extends JFrame implements Runnable{
 		}
 	}
 	
-	// Körs när spel thread:en startas
+	// Kï¿½rs nï¿½r spel thread:en startas
 	public void run() {
+		int updates = 0;
+		int frames = 0;
+		long timer = System.currentTimeMillis();
 		
-		// Kör render och update funktionerna så länge running = true
-		// Update begränsat till 60 fps, Render obegränsad
+		long now;
+		double delta = 0;
+		double sextioDelsSekund = 1000000000.0 / 60.0;
+		long lastTime = System.nanoTime();
+		
+		// Kï¿½r render och update funktionerna sï¿½ lï¿½nge running = true
+		// Update begrï¿½nsat till 60 fps, Render obegrï¿½nsad
 		while(running) {
+			now = System.nanoTime(); 
+			delta += (now - lastTime) / sextioDelsSekund;
+			lastTime = now;
+			
+			if(delta >= 1) {
+				update();
+				updates++;
+				delta--;
+			}
+			
 			render();
-			update();
+			frames++;
+			
+			if(System.currentTimeMillis() - timer >= 1000) {
+				timer += 1000;
+				System.out.println(updates + " ups " + frames + " fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
 		stop();
 	}
@@ -81,18 +106,18 @@ class Game extends JFrame implements Runnable{
 	public static void render() {
 		bs = canvas.getBufferStrategy();
 		
-		// Skapar en bufferstrategy för canvas om sådan ej finns
+		// Skapar en bufferstrategy fï¿½r canvas om sï¿½dan ej finns
 		if(bs == null) {
 			canvas.createBufferStrategy(3);
 			return;
 		}
 		
-		// Sätter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker där.
+		// Sï¿½tter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dï¿½r.
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = Color.PINK.getRGB();
 		}
 		
-		// Renderar och visar pixel[] arrayen som innehåller en färg för varje pixel i form av en hexadecimal, dvs ett nummer.
+		// Renderar och visar pixel[] arrayen som innehï¿½ller en fï¿½rg fï¿½r varje pixel i form av en hexadecimal, dvs ett nummer.
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 		g.dispose();
