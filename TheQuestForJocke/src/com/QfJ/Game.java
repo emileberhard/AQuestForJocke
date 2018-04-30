@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package com.QfJ;
 
 import com.QfJ.graphics.*;
@@ -171,4 +169,3 @@ class Game extends JFrame implements Runnable{
 		
 	}
 }
->>>>>>> skriva-om-allt-själv
