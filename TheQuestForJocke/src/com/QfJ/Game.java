@@ -22,6 +22,10 @@ class Game extends JFrame implements Runnable{
 	private static int width = 16 * height / 9;
 	private static int scale = 3;
 	
+	private int xPos = 0;
+	private int yPos = 0;
+	private int time = 0;
+	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
 	
@@ -57,6 +61,7 @@ class Game extends JFrame implements Runnable{
 			BufferedImage loadedImage = ImageIO.read(Game.class.getClassLoader().getResourceAsStream(path));
 			BufferedImage formattedImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
+			System.out.println(formattedImage.getWidth());
 			return formattedImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -135,10 +140,18 @@ class Game extends JFrame implements Runnable{
 			return;
 		}
 		
-		// renderar pixels[] i screen classen
-		screen.render();
-		screen.renderImage(testImage, 0, 0);
+		//animation
+		time++;
 		
+		if(time % 100 == 0) {
+			xPos++;
+			yPos++;
+		}
+		
+		// renderar pixels[] i screen classen
+		screen.renderImage(testImage, xPos, yPos);
+		screen.render();
+
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
