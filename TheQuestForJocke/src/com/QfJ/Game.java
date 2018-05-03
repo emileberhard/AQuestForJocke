@@ -6,6 +6,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-class Game extends JFrame implements Runnable{
+class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
@@ -25,6 +27,11 @@ class Game extends JFrame implements Runnable{
 	private int xPos = 0;
 	private int yPos = 0;
 	private int time = 0;
+	
+	boolean up = false;
+	boolean down = false;
+	boolean right = false;
+	boolean left = false;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
@@ -49,6 +56,7 @@ class Game extends JFrame implements Runnable{
 		setLocationRelativeTo(null);
 		setTitle(title);
 		setVisible(true);
+		addKeyListener(this);
 		
 		screen = new Screen(width, height);
 		canvas.setSize(size);
@@ -140,13 +148,7 @@ class Game extends JFrame implements Runnable{
 			return;
 		}
 		
-		//animation
-		time++;
-		
-		if(time % 100 == 0) {
-			xPos++;
-			yPos++;
-		}
+		screen.clear();
 		
 		// renderar pixels[] i screen classen
 		screen.renderImage(testImage, xPos, yPos);
@@ -166,6 +168,81 @@ class Game extends JFrame implements Runnable{
 	
 	// Uppdaterar spelet (player movement, game logic)
 	public void update() {
+	//animation
+		if(up) {
+			if(right || left) {
+				yPos--;
+			}else {
+				yPos -= 2;
+			}
+		}
+		if(down) {
+			if(right || left) {
+				yPos++;
+			}else {
+				yPos += 2;
+			}
+		}
+		if(right) {
+			if(up || down) {
+				xPos++;
+			}else {
+				xPos += 2;
+			}
+		}
+		if(left) {
+			if(up || down) {
+				xPos--;
+			}else {
+				xPos -= 2;
+			}
+		}
+		if(yPos < 0) {
+			yPos = 0;
+		}
+		if(yPos > (height - testImage.getHeight())){
+			yPos = height - testImage.getHeight();
+		}
+		if(xPos < 0) {
+			xPos = 0;
+		}
+		if(xPos > (width - testImage.getWidth())){
+			xPos = width - testImage.getWidth();
+		}
+	}
+
+	public void keyTyped(KeyEvent e) {
 		
+	}
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_UP) {
+			System.out.println("up");
+			up = true;
+		}
+		if(key == KeyEvent.VK_DOWN) {
+			down = true;
+		}
+		if(key == KeyEvent.VK_RIGHT) {
+			right = true;
+		}
+		if(key == KeyEvent.VK_LEFT) {
+			left = true;
+		}
+	}
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_UP) {
+			up = false;
+		}
+		if(key == KeyEvent.VK_DOWN) {
+			down = false;
+		}
+		if(key == KeyEvent.VK_RIGHT) {
+			right = false;
+		}
+		if(key == KeyEvent.VK_LEFT) {
+			left = false;
+		}
 	}
 }

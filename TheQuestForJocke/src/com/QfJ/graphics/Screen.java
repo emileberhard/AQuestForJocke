@@ -21,7 +21,7 @@ public class Screen{
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
 				if(pixels[x + y * width] == 0) {
-					pixels[x + y * width] = Color.yellow.getRGB();
+					pixels[x + y * width] = Color.pink.getRGB();
 				}
 			}
 		}
@@ -37,9 +37,7 @@ public class Screen{
 		int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		for(int y = 0; y < image.getHeight(); y++) {
-			if(y < 0 || y >= image.getHeight()) break;
 			for(int x = 0; x < image.getWidth(); x++) {
-				if(x < 0 || x >= image.getWidth()) break;
 				pixels[(x + xPos) + (yPos + y) * width] = imagePixels[x + y * image.getWidth()];
 			}
 		}
