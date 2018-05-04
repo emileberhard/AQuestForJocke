@@ -20,7 +20,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	private static int height = 250;
+	private static int height = 500;
 	private static int width = 16 * height / 9;
 	private static int scale = 2;
 	
@@ -38,14 +38,13 @@ class Game extends JFrame implements Runnable, KeyListener{
 	
 	private Screen screen;
 	private TextBox textBox = new TextBox();
+	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
 	private BufferStrategy bs;
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-	
-	BufferedImage testImage = loadImage("xiange.png");
 	
 	// Konstruktor - St�ller in JFrame:en och canvas med r�tt storlek och inst�llningar. K�rs n�r ett Game-objekt skapas i main metoden.
 	public Game() {
@@ -151,10 +150,11 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 		
-		BufferedImage boxBild = textBox.renderText("Where's my man?!");
+		BufferedImage boxBild = xiangeObjekt.speak(1);
 		// renderar pixels[] i screen classen
-		screen.renderImage(testImage, (int)xPos, (int)yPos);
-		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
+		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xPos, (int)yPos);
+		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
+		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
@@ -203,14 +203,14 @@ class Game extends JFrame implements Runnable, KeyListener{
 		if(yPos < 0) {
 			yPos = 0;
 		} 
-		if(yPos > (height - testImage.getHeight()) - 10){
-			yPos = height - testImage.getHeight() - 10;
+		if(yPos > (height - xiangeObjekt.getPlayerImage().getHeight())){
+			yPos = height - xiangeObjekt.getPlayerImage().getHeight();
 		}
 		if(xPos < 0) {
 			xPos = 0;
 		}
-		if(xPos > (width - testImage.getWidth())){
-			xPos = width - testImage.getWidth();
+		if(xPos > (width - xiangeObjekt.getPlayerImage().getWidth())){
+			xPos = width - xiangeObjekt.getPlayerImage().getWidth();
 		}
 	}
 
