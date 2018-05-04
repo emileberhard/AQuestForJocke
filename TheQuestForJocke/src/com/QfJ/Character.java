@@ -6,13 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public abstract class Player {
+public abstract class Character {
 	int hp = 100;
 	String name;
 	BufferedImage playerImage;
 	BufferedImage hpImage;
 	
-	public Player(String name, BufferedImage playerImage) {
+	public Character(String name, BufferedImage playerImage) {
 		this.name = name;
 		this.playerImage = playerImage;
 	}

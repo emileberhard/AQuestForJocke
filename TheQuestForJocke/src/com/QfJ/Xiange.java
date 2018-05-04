@@ -2,7 +2,7 @@ package com.QfJ;
 
 import java.awt.image.BufferedImage;
 
-public class Xiange extends Player{
+public class Xiange extends Character{
 	
 	private TextBox speechBox = new TextBox();
 	private BufferedImage boxImage;
