@@ -22,10 +22,10 @@ class Game extends JFrame implements Runnable, KeyListener{
 	// Variabler och objekt som beh�vs
 	private static int height = 250;
 	private static int width = 16 * height / 9;
-	private static int scale = 3;
+	private static int scale = 2;
 	
-	private int xPos = 0;
-	private int yPos = 0;
+	private double xPos = 0;
+	private double yPos = 0;
 	private int time = 0;
 	
 	boolean up = false;
@@ -151,7 +151,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 		screen.clear();
 		
 		// renderar pixels[] i screen classen
-		screen.renderImage(testImage, xPos, yPos);
+		screen.renderImage(testImage, (int)xPos, (int)yPos);
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
@@ -171,35 +171,35 @@ class Game extends JFrame implements Runnable, KeyListener{
 	//animation
 		if(up) {
 			if(right || left) {
-				yPos--;
+				yPos -= 1.4142;
 			}else {
 				yPos -= 2;
 			}
 		}
 		if(down) {
 			if(right || left) {
-				yPos++;
+				yPos +=1.4142;
 			}else {
 				yPos += 2;
 			}
 		}
 		if(right) {
 			if(up || down) {
-				xPos++;
+				xPos +=1.4142;
 			}else {
 				xPos += 2;
 			}
 		}
 		if(left) {
 			if(up || down) {
-				xPos--;
+				xPos-=1.4142;
 			}else {
 				xPos -= 2;
 			}
 		}
 		if(yPos < 0) {
 			yPos = 0;
-		}
+		} 
 		if(yPos > (height - testImage.getHeight())){
 			yPos = height - testImage.getHeight();
 		}
