@@ -22,7 +22,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 	// Variabler och objekt som beh�vs
 	private static int height = 500;
 	private static int width = 16 * height / 9;
-	private static int scale = 2;
+	private static int scale = 1;
 	
 	private double xPos = 0;
 	private double yPos = 0;
@@ -61,6 +61,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 		screen = new Screen(width, height);
 		canvas.setSize(size);
 		add(canvas);
+		pack();
 		
 	}
 	
