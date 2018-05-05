@@ -28,10 +28,11 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private double yPos = 0;
 	private int time = 0;
 	
-	boolean up = false;
-	boolean down = false;
-	boolean right = false;
-	boolean left = false;
+	private boolean up = false;
+	private boolean down = false;
+	private boolean right = false;
+	private boolean left = false;
+	private boolean smile = false;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
@@ -65,12 +66,11 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 	}
 	
-	private BufferedImage loadImage(String path) {
+	public static BufferedImage loadImage(String path) {
 		try {
 			BufferedImage loadedImage = ImageIO.read(Game.class.getClassLoader().getResourceAsStream(path));
 			BufferedImage formattedImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
-			System.out.println(formattedImage.getWidth());
 			return formattedImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -122,15 +122,14 @@ class Game extends JFrame implements Runnable, KeyListener{
 			if(delta >= 1) {
 				update();
 				updates++;
+				render();
+				frames++;
 				delta--;
+				
 			}
-			
-			render();
-			frames++;
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
 				timer += 1000;
-				System.out.println(updates + " ups " + frames + " fps");
 				setTitle(title + "  |  " + updates + " ups " + frames + " fps");
 				updates = 0;
 				frames = 0;
@@ -152,8 +151,9 @@ class Game extends JFrame implements Runnable, KeyListener{
 		screen.clear();
 		
 		BufferedImage boxBild = xiangeObjekt.speak(1);
+		
 		// renderar pixels[] i screen classen
-		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xPos, (int)yPos);
+		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
 		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
 		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
 		screen.render();
@@ -172,52 +172,16 @@ class Game extends JFrame implements Runnable, KeyListener{
 	
 	// Uppdaterar spelet (player movement, game logic)
 	public void update() {
+		
 	//animation
-		if(up) {
-			if(right || left) {
-				yPos -= 1.4142;
-			}else {
-				yPos -= 2;
-			}
-		}
-		if(down) {
-			if(right || left) {
-				yPos +=1.4142;
-			}else {
-				yPos += 2;
-			}
-		}
-		if(right) {
-			if(up || down) {
-				xPos +=1.4142;
-			}else {
-				xPos += 2;
-			}
-		}
-		if(left) {
-			if(up || down) {
-				xPos-=1.4142;
-			}else {
-				xPos -= 2;
-			}
-		}
-		if(yPos < 0) {
-			yPos = 0;
-		} 
-		if(yPos > (height - xiangeObjekt.getPlayerImage().getHeight())){
-			yPos = height - xiangeObjekt.getPlayerImage().getHeight();
-		}
-		if(xPos < 0) {
-			xPos = 0;
-		}
-		if(xPos > (width - xiangeObjekt.getPlayerImage().getWidth())){
-			xPos = width - xiangeObjekt.getPlayerImage().getWidth();
-		}
+		xiangeObjekt.move(up, down, right, left, width, height);
+		xiangeObjekt.smile(smile);
 	}
 
 	public void keyTyped(KeyEvent e) {
 		
 	}
+	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_UP) {
@@ -231,6 +195,9 @@ class Game extends JFrame implements Runnable, KeyListener{
 		}
 		if(key == KeyEvent.VK_LEFT) {
 			left = true;
+		}
+		if(key == KeyEvent.VK_S) {
+			smile = true;
 		}
 	}
 	public void keyReleased(KeyEvent e) {
@@ -246,6 +213,9 @@ class Game extends JFrame implements Runnable, KeyListener{
 		}
 		if(key == KeyEvent.VK_LEFT) {
 			left = false;
+		}
+		if(key == KeyEvent.VK_S) {
+			smile = false;
 		}
 	}
 }

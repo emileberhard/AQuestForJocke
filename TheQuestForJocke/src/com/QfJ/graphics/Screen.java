@@ -21,7 +21,7 @@ public class Screen{
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
 				if(pixels[x + y * width] == 0) {
-					pixels[x + y * width] = Color.pink.getRGB();
+					pixels[x + y * width] = Color.white.getRGB();
 				}
 			}
 		}
