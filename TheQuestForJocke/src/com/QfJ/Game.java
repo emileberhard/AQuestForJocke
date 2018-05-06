@@ -32,7 +32,6 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
-	private TextBox textBox = new TextBox();
 	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
 	
 	private Canvas canvas = new Canvas();
