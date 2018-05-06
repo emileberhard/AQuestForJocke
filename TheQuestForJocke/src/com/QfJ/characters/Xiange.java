@@ -1,6 +1,8 @@
-package com.QfJ;
+package com.QfJ.characters;
 
 import java.awt.image.BufferedImage;
+
+import com.QfJ.*;
 
 public class Xiange extends Character{
 	

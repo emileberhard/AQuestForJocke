@@ -1,5 +1,7 @@
 package com.QfJ;
 
+import com.QfJ.characters.Jakob;
+import com.QfJ.characters.Xiange;
 import com.QfJ.graphics.*;
 
 import java.awt.Canvas;
@@ -16,12 +18,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-class Game extends JFrame implements Runnable, KeyListener{
+public class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	static int height = 500;
-	static int width = 16 * height / 9;
+	public static int height = 500;
+	public static int width = 16 * height / 9;
 	private static int scale = 1;
 	
 	private double xPos = 0;
@@ -33,6 +35,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 	
 	private Screen screen;
 	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
+	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"));
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
@@ -143,9 +146,11 @@ class Game extends JFrame implements Runnable, KeyListener{
 			return;
 		}
 		
+		
 		screen.clear();
 
 		// renderar pixels[] i screen classen
+		screen.renderImage(jakobObjekt.getPlayerImage(), (int)jakobObjekt.xPos, (int)jakobObjekt.yPos);
 		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
 		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
 		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);

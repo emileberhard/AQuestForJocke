@@ -1,4 +1,4 @@
-package com.QfJ;
+package com.QfJ.characters;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,19 +8,21 @@ import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import com.QfJ.*;
+
 public abstract class Character {
-	int hp = 100;
-	double xPos = 0;
-	double yPos = 0;
+	public int hp = 100;
+	public double xPos = 0;
+	public double yPos = 0;
 	
 	double speed = 6;
 	double composantSpeed = speed / Math.sqrt(2);
 	
-	boolean up = false;
-	boolean down = false;
-	boolean right = false;
-	boolean left = false;
-	boolean smile = false;
+	public boolean up = false;
+	public boolean down = false;
+	public boolean right = false;
+	public boolean left = false;
+	public boolean smile = false;
 	
 	String name;
 	BufferedImage playerImage;
@@ -29,7 +31,6 @@ public abstract class Character {
 	public Character(String name, BufferedImage playerImage) {
 		this.name = name;
 		this.playerImage = playerImage;
-		System.out.println(composantSpeed);
 	}
 	
 	public BufferedImage getPlayerImage() {
