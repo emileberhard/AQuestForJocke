@@ -144,10 +144,6 @@ class Game extends JFrame implements Runnable, KeyListener{
 		}
 		
 		screen.clear();
-		
-		//BufferedImage boxBild = textBox.renderText("Where's my man?!");
-		// renderar pixels[] i screen classen
-		//screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
 
 		// renderar pixels[] i screen classen
 		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);

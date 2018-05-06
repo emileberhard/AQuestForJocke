@@ -14,7 +14,7 @@ public abstract class Character {
 	double yPos = 0;
 	
 	double speed = 6;
-	double diagonalSpeed = Math.sqrt(2) * speed;
+	double composantSpeed = speed / Math.sqrt(2);
 	
 	boolean up = false;
 	boolean down = false;
@@ -29,7 +29,7 @@ public abstract class Character {
 	public Character(String name, BufferedImage playerImage) {
 		this.name = name;
 		this.playerImage = playerImage;
-		System.out.println(diagonalSpeed);
+		System.out.println(composantSpeed);
 	}
 	
 	public BufferedImage getPlayerImage() {
@@ -53,22 +53,22 @@ public abstract class Character {
 		
 		if(right) {
 			if(up) {
-				xPos += diagonalSpeed;	
-				yPos -= diagonalSpeed;
+				xPos += composantSpeed;	
+				yPos -= composantSpeed;
 			}else if(down){
-				xPos += diagonalSpeed;
-				yPos += diagonalSpeed;
+				xPos += composantSpeed;
+				yPos += composantSpeed;
 			}else {
 				xPos += speed;
 			}
 		}
 		else if(left) {
 			if(up) {
-				xPos -= diagonalSpeed;
-				yPos -= diagonalSpeed;
+				xPos -= composantSpeed;
+				yPos -= composantSpeed;
 			}else if(down){
-				xPos -= diagonalSpeed;
-				yPos += diagonalSpeed;
+				xPos -= composantSpeed;
+				yPos += composantSpeed;
 			}else {
 				xPos -= speed;
 			}
