@@ -20,32 +20,31 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	private static int height = 250;
-	private static int width = 16 * height / 9;
-	private static int scale = 2;
+	static int height = 500;
+	static int width = 16 * height / 9;
+	private static int scale = 1;
 	
 	private double xPos = 0;
 	private double yPos = 0;
 	private int time = 0;
 	
-	boolean up = false;
-	boolean down = false;
-	boolean right = false;
-	boolean left = false;
-	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
+<<<<<<< HEAD
 	//private TextBox textBox = new TextBox();
+=======
+	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
+>>>>>>> 4da654c62cd2e05e5a92d5c62c9f3b3b7bb46354
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
 	private BufferStrategy bs;
+	
+	private BufferedImage boxBild;
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-	
-	BufferedImage testImage = loadImage("xiange.png");
 	
 	// Konstruktor - St�ller in JFrame:en och canvas med r�tt storlek och inst�llningar. K�rs n�r ett Game-objekt skapas i main metoden.
 	public Game() {
@@ -62,15 +61,15 @@ class Game extends JFrame implements Runnable, KeyListener{
 		screen = new Screen(width, height);
 		canvas.setSize(size);
 		add(canvas);
+		pack();
 		
 	}
 	
-	private BufferedImage loadImage(String path) {
+	public static BufferedImage loadImage(String path) {
 		try {
 			BufferedImage loadedImage = ImageIO.read(Game.class.getClassLoader().getResourceAsStream(path));
 			BufferedImage formattedImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
-			System.out.println(formattedImage.getWidth());
 			return formattedImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -122,15 +121,14 @@ class Game extends JFrame implements Runnable, KeyListener{
 			if(delta >= 1) {
 				update();
 				updates++;
+				render();
+				frames++;
 				delta--;
+				
 			}
-			
-			render();
-			frames++;
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
 				timer += 1000;
-				System.out.println(updates + " ups " + frames + " fps");
 				setTitle(title + "  |  " + updates + " ups " + frames + " fps");
 				updates = 0;
 				frames = 0;
@@ -151,10 +149,17 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 		
+<<<<<<< HEAD
 		//BufferedImage boxBild = textBox.renderText("Where's my man?!");
 		// renderar pixels[] i screen classen
 		screen.renderImage(testImage, (int)xPos, (int)yPos);
 		//screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
+=======
+		// renderar pixels[] i screen classen
+		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
+		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
+		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
+>>>>>>> 4da654c62cd2e05e5a92d5c62c9f3b3b7bb46354
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
@@ -171,80 +176,53 @@ class Game extends JFrame implements Runnable, KeyListener{
 	
 	// Uppdaterar spelet (player movement, game logic)
 	public void update() {
+		
 	//animation
-		if(up) {
-			if(right || left) {
-				yPos -= 1.4142;
-			}else {
-				yPos -= 2;
-			}
-		}
-		if(down) {
-			if(right || left) {
-				yPos +=1.4142;
-			}else {
-				yPos += 2;
-			}
-		}
-		if(right) {
-			if(up || down) {
-				xPos +=1.4142;
-			}else {
-				xPos += 2;
-			}
-		}
-		if(left) {
-			if(up || down) {
-				xPos-=1.4142;
-			}else {
-				xPos -= 2;
-			}
-		}
-		if(yPos < 0) {
-			yPos = 0;
-		} 
-		if(yPos > (height - testImage.getHeight()) - 10){
-			yPos = height - testImage.getHeight() - 10;
-		}
-		if(xPos < 0) {
-			xPos = 0;
-		}
-		if(xPos > (width - testImage.getWidth())){
-			xPos = width - testImage.getWidth();
-		}
+		xiangeObjekt.move();
+		xiangeObjekt.smile();
+		boxBild = xiangeObjekt.speak(1);
+
 	}
 
-	public void keyTyped(KeyEvent e) {
-		
-	}
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_UP) {
-			up = true;
+			xiangeObjekt.up = true;
 		}
 		if(key == KeyEvent.VK_DOWN) {
-			down = true;
+			xiangeObjekt.down = true;
 		}
 		if(key == KeyEvent.VK_RIGHT) {
-			right = true;
+			xiangeObjekt.right = true;
 		}
 		if(key == KeyEvent.VK_LEFT) {
-			left = true;
+			xiangeObjekt.left = true;
+		}
+		if(key == KeyEvent.VK_S) {
+			xiangeObjekt.smile = true;
 		}
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_UP) {
-			up = false;
+			xiangeObjekt.up = false;
 		}
 		if(key == KeyEvent.VK_DOWN) {
-			down = false;
+			xiangeObjekt.down = false;
 		}
 		if(key == KeyEvent.VK_RIGHT) {
-			right = false;
+			xiangeObjekt.right = false;
 		}
 		if(key == KeyEvent.VK_LEFT) {
-			left = false;
+			xiangeObjekt.left = false;
 		}
+		if(key == KeyEvent.VK_S) {
+			xiangeObjekt.smile = false;
+		}
+	}	
+	
+	public void keyTyped(KeyEvent e) {
+		
 	}
 }
