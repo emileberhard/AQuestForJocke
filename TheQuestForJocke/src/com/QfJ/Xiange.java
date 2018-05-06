@@ -26,6 +26,6 @@ public class Xiange extends Character{
 	}
 	
 	public void smile() {
-		
+		playerImage = smileImage;
 	}
 }

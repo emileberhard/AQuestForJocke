@@ -10,8 +10,11 @@ import java.awt.image.BufferedImage;
 
 public abstract class Character {
 	int hp = 100;
-	int xPos = 0;
-	int yPos = 0;
+	double xPos = 0;
+	double yPos = 0;
+	
+	double speed = 6;
+	double diagonalSpeed = Math.sqrt(2) * speed;
 	
 	boolean up = false;
 	boolean down = false;
@@ -26,6 +29,7 @@ public abstract class Character {
 	public Character(String name, BufferedImage playerImage) {
 		this.name = name;
 		this.playerImage = playerImage;
+		System.out.println(diagonalSpeed);
 	}
 	
 	public BufferedImage getPlayerImage() {
@@ -49,31 +53,31 @@ public abstract class Character {
 		
 		if(right) {
 			if(up) {
-				xPos +=1.4142;	
-				yPos -= 1.4142;
+				xPos += diagonalSpeed;	
+				yPos -= diagonalSpeed;
 			}else if(down){
-				xPos += 1.4142;
-				yPos += 1.4142;
+				xPos += diagonalSpeed;
+				yPos += diagonalSpeed;
 			}else {
-				xPos += 2;
+				xPos += speed;
 			}
 		}
 		else if(left) {
 			if(up) {
-				xPos -= 1.4142;
-				yPos -= 1.4142;
+				xPos -= diagonalSpeed;
+				yPos -= diagonalSpeed;
 			}else if(down){
-				xPos -= 1.4142;
-				yPos += 1.4142;
+				xPos -= diagonalSpeed;
+				yPos += diagonalSpeed;
 			}else {
-				xPos -= 2;
+				xPos -= speed;
 			}
 		}
 		else if(up) {
-			yPos -= 2;
+			yPos -= speed;
 		}
 		else if(down) {
-			yPos += 2;
+			yPos += speed;
 		}
 		
 		if(yPos < 0) {
