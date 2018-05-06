@@ -32,11 +32,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
-<<<<<<< HEAD
-	//private TextBox textBox = new TextBox();
-=======
 	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
->>>>>>> 4da654c62cd2e05e5a92d5c62c9f3b3b7bb46354
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
@@ -149,17 +145,14 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 		
-<<<<<<< HEAD
 		//BufferedImage boxBild = textBox.renderText("Where's my man?!");
 		// renderar pixels[] i screen classen
-		screen.renderImage(testImage, (int)xPos, (int)yPos);
 		//screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
-=======
+
 		// renderar pixels[] i screen classen
 		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
 		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
 		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
->>>>>>> 4da654c62cd2e05e5a92d5c62c9f3b3b7bb46354
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
