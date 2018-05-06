@@ -37,7 +37,7 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
-	private TextBox textBox = new TextBox();
+	//private TextBox textBox = new TextBox();
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
@@ -151,10 +151,10 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 		
-		BufferedImage boxBild = textBox.renderText("Where's my man?!");
+		//BufferedImage boxBild = textBox.renderText("Where's my man?!");
 		// renderar pixels[] i screen classen
 		screen.renderImage(testImage, (int)xPos, (int)yPos);
-		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
+		//screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 60);
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
