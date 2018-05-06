@@ -20,19 +20,13 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	private static int height = 500;
-	private static int width = 16 * height / 9;
+	static int height = 500;
+	static int width = 16 * height / 9;
 	private static int scale = 1;
 	
 	private double xPos = 0;
 	private double yPos = 0;
 	private int time = 0;
-	
-	private boolean up = false;
-	private boolean down = false;
-	private boolean right = false;
-	private boolean left = false;
-	private boolean smile = false;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
@@ -44,6 +38,8 @@ class Game extends JFrame implements Runnable, KeyListener{
 	private Canvas canvas = new Canvas();
 	private Thread thread;
 	private BufferStrategy bs;
+	
+	private BufferedImage boxBild;
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
@@ -150,8 +146,6 @@ class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 		
-		BufferedImage boxBild = xiangeObjekt.speak(1);
-		
 		// renderar pixels[] i screen classen
 		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
 		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
@@ -174,48 +168,51 @@ class Game extends JFrame implements Runnable, KeyListener{
 	public void update() {
 		
 	//animation
-		xiangeObjekt.move(up, down, right, left, width, height);
-		xiangeObjekt.smile(smile);
+		xiangeObjekt.move();
+		xiangeObjekt.smile();
+		boxBild = xiangeObjekt.speak(1);
+
 	}
 
-	public void keyTyped(KeyEvent e) {
-		
-	}
-	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_UP) {
-			up = true;
+			xiangeObjekt.up = true;
 		}
 		if(key == KeyEvent.VK_DOWN) {
-			down = true;
+			xiangeObjekt.down = true;
 		}
 		if(key == KeyEvent.VK_RIGHT) {
-			right = true;
+			xiangeObjekt.right = true;
 		}
 		if(key == KeyEvent.VK_LEFT) {
-			left = true;
+			xiangeObjekt.left = true;
 		}
 		if(key == KeyEvent.VK_S) {
-			smile = true;
+			xiangeObjekt.smile = true;
 		}
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_UP) {
-			up = false;
+			xiangeObjekt.up = false;
 		}
 		if(key == KeyEvent.VK_DOWN) {
-			down = false;
+			xiangeObjekt.down = false;
 		}
 		if(key == KeyEvent.VK_RIGHT) {
-			right = false;
+			xiangeObjekt.right = false;
 		}
 		if(key == KeyEvent.VK_LEFT) {
-			left = false;
+			xiangeObjekt.left = false;
 		}
 		if(key == KeyEvent.VK_S) {
-			smile = false;
+			xiangeObjekt.smile = false;
 		}
+	}	
+	
+	public void keyTyped(KeyEvent e) {
+		
 	}
 }

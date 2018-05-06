@@ -45,46 +45,49 @@ public abstract class Character {
 		return hpImage;
 	}
 	
-	public void move(Boolean up, Boolean down, Boolean right, Boolean left, int width, int height) {
-		if(up) {
-			if(right || left) {
-				yPos -= 1.4142;
-			}else {
-				yPos -= 2;
-			}
-		}
-		if(down) {
-			if(right || left) {
-				yPos +=1.4142;
-			}else {
-				yPos += 2;
-			}
-		}
+	public void move() {
+		
 		if(right) {
-			if(up || down) {
-				xPos +=1.4142;
+			if(up) {
+				xPos +=1.4142;	
+				yPos -= 1.4142;
+			}else if(down){
+				xPos += 1.4142;
+				yPos += 1.4142;
 			}else {
 				xPos += 2;
 			}
 		}
-		if(left) {
-			if(up || down) {
-				xPos-=1.4142;
+		else if(left) {
+			if(up) {
+				xPos -= 1.4142;
+				yPos -= 1.4142;
+			}else if(down){
+				xPos -= 1.4142;
+				yPos += 1.4142;
 			}else {
 				xPos -= 2;
 			}
 		}
+		else if(up) {
+			yPos -= 2;
+		}
+		else if(down) {
+			yPos += 2;
+		}
+		
 		if(yPos < 0) {
 			yPos = 0;
 		} 
-		if(yPos > (height - playerImage.getHeight())){
-			yPos = height - playerImage.getHeight();
+
+		if(yPos > (Game.height - playerImage.getHeight())){
+			yPos = Game.height - playerImage.getHeight();
 		}
 		if(xPos < 0) {
 			xPos = 0;
 		}
-		if(xPos > (width - playerImage.getWidth())){
-			xPos = width - playerImage.getWidth();
+		if(xPos > (Game.width - playerImage.getWidth())){
+			xPos = Game.width - playerImage.getWidth();
 		}
 	}
 }

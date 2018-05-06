@@ -25,7 +25,7 @@ public class Xiange extends Character{
 		return boxImage;
 	}
 	
-	public void smile(boolean smile) {
+	public void smile() {
 		
 	}
 }
