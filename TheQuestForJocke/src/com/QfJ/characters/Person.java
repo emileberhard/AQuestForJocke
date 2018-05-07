@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 import com.QfJ.*;
 
-public abstract class Character {
+public abstract class Person {
 	public int hp = 100;
 	public double xPos = 0;
 	public double yPos = 0;
@@ -24,11 +24,13 @@ public abstract class Character {
 	public boolean left = false;
 	public boolean smile = false;
 	
+	public boolean isForeground = false;
+	
 	String name;
 	BufferedImage playerImage;
 	BufferedImage hpImage;
 	
-	public Character(String name, BufferedImage playerImage) {
+	public Person(String name, BufferedImage playerImage) {
 		this.name = name;
 		this.playerImage = playerImage;
 	}

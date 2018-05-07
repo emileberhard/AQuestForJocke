@@ -1,11 +1,11 @@
 package com.QfJ;
 
 import com.QfJ.characters.Jakob;
+import com.QfJ.characters.Person;
 import com.QfJ.characters.Xiange;
 import com.QfJ.graphics.*;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -26,14 +26,11 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	public static int width = 16 * height / 9;
 	private static int scale = 1;
 	
-	private double xPos = 0;
-	private double yPos = 0;
-	private int time = 0;
-	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
+	private Person[] people = new Person[2];
 	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
 	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"));
 	
@@ -101,6 +98,9 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	
 	// K�rs n�r spel thread:en startas
 	public void run() {
+		people[0] = xiangeObjekt;
+		people[1] = jakobObjekt;
+
 		int updates = 0;
 		int frames = 0;
 		long timer = System.currentTimeMillis();
@@ -149,9 +149,23 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		
 		screen.clear();
 
-		// renderar pixels[] i screen classen
-		screen.renderImage(jakobObjekt.getPlayerImage(), (int)jakobObjekt.xPos, (int)jakobObjekt.yPos);
-		screen.renderImage(xiangeObjekt.getPlayerImage(), (int)xiangeObjekt.xPos, (int)xiangeObjekt.yPos);
+		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
+		for(int i = 0; i < people.length; i++) {
+			for(int x = 0; x < people.length - 1; x++) {
+				if(people[x].yPos + people[x].getPlayerImage().getHeight() < people[x+1].yPos + people[x+1].getPlayerImage().getHeight()) {
+					Person temp = people[x];
+					people[x] = people[x+1];
+					people[x+1] = temp;
+				}
+			}		
+		}
+		
+		// renderar alla characters
+		for(Person person : people) {
+			screen.renderImage(person.getPlayerImage(), (int)person.xPos, (int)person.yPos);
+		}
+		
+		// rendererar annat som hp bar och text
 		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
 		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
 		screen.render();

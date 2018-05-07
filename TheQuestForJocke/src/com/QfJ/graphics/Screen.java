@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import com.QfJ.characters.Person;
+
 public class Screen{
 	
 	private int width, height;
@@ -37,9 +39,11 @@ public class Screen{
 		int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		for(int y = 0; y < image.getHeight(); y++) {
+			if(y < 0 || y >= height) break;
 			for(int x = 0; x < image.getWidth(); x++) {
-				if(pixels[(x + xPos) + (yPos + y) * width] == 0) {
-					pixels[(x + xPos) + (yPos + y) * width] = imagePixels[x + y * image.getWidth()];
+				if(x < 0 || x >= width) break;
+				if(pixels[(x + xPos) + (y + yPos) * width] == 0) {
+					pixels[(x + xPos) + (y + yPos) * width] = imagePixels[x + y * image.getWidth()];
 				}
 			}
 		}
