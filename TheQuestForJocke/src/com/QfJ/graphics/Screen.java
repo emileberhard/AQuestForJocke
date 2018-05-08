@@ -1,6 +1,7 @@
 package com.QfJ.graphics;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
@@ -9,12 +10,19 @@ import com.QfJ.characters.Person;
 public class Screen{
 	
 	private int width, height;
+	private Rectangle camera;
 	public int[] pixels;
 	
 	public Screen(int width, int height) {
 			this.width = width;
 			this.height = height;
 			pixels = new int[width * height];
+			
+			camera = new Rectangle(0, 0, width, height);
+			camera.x = -100;
+			camera.y = -30;
+			
+			
 	}
 	
 	public void render() {

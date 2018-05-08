@@ -11,5 +11,9 @@ public class Rectangle {
 		this.h = h;
 	}
 	
+	public Rectangle() {
+		this(0, 0, 0, 0);
+	}
+	
 	
 }

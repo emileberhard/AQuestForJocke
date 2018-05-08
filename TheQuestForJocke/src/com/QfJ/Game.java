@@ -51,12 +51,15 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle(title);
-		setVisible(true);
 		addKeyListener(this);
+		setVisible(true);
+		setFocusable(true);
 		
 		screen = new Screen(width, height);
 		canvas.setSize(size);
 		add(canvas);
+		canvas.addKeyListener(this);
+		canvas.setFocusable(true);
 		pack();
 		
 	}
