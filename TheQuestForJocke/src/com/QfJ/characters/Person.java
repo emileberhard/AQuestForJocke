@@ -30,9 +30,11 @@ public abstract class Person {
 	BufferedImage playerImage;
 	BufferedImage hpImage;
 	
-	public Person(String name, BufferedImage playerImage) {
+	public Person(String name, BufferedImage playerImage, int xPos, int yPos) {
 		this.name = name;
 		this.playerImage = playerImage;
+		this.xPos = xPos;
+		this.yPos = yPos;
 	}
 	
 	public BufferedImage getPlayerImage() {
@@ -50,6 +52,13 @@ public abstract class Person {
 		graphics.setFont(new Font("Arial", Font.PLAIN, 10));
 		graphics.drawString("HP: " + Integer.toString(hp), 13, hpImage.getHeight()/2+4);
 		return hpImage;
+	}
+	
+	public int getWidth(){
+		return playerImage.getWidth();
+	}
+	public int getHeight(){
+		return playerImage.getHeight();
 	}
 	
 	public void move() {

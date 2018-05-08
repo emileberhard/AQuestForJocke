@@ -6,21 +6,18 @@ import com.QfJ.*;
 
 public class Xiange extends Person{
 	
-	private TextBox speechBox = new TextBox();
+	private SpeechBox speechBox = new SpeechBox();
 	private BufferedImage boxImage;
 	private BufferedImage temp;
 	
-	public Xiange(BufferedImage playerImage) {
-		super("Xiange", playerImage);
+	public Xiange(BufferedImage playerImage, int xPos, int yPos) {
+		super("Xiange", playerImage, xPos, yPos);
 	}
 	
 	public BufferedImage speak(int voiceLineNum) {
-		
 		switch(voiceLineNum) {
-		
-		case 1: boxImage = speechBox.getTextImage(name + ":  Where's my main man?!");
+		case 1: boxImage = speechBox.getTextImage("Where's my main man?!");
 			break;
-			
 		}
 		return boxImage;
 	}

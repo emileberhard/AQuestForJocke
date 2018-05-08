@@ -31,8 +31,8 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	
 	private Screen screen;
 	private Person[] people = new Person[2];
-	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"));
-	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"));
+	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"), width/2, height/2);
+	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"), 60, 70);
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
@@ -169,7 +169,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		}
 		
 		// rendererar annat som hp bar och text
-		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40, 1, 1);
+		screen.renderImage(boxBild, (int)xiangeObjekt.xPos + xiangeObjekt.getWidth(), (int)xiangeObjekt.yPos - boxBild.getHeight(), 1, 1);
 		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30, 1, 1);
 		screen.render();
 
