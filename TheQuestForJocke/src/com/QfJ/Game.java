@@ -137,7 +137,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	}
 	
 	// Renderar grafik
-	public void render() {
+	private void render() {
 		bs = canvas.getBufferStrategy();
 		
 		// Skapar en bufferstrategy f�r canvas om s�dan ej finns
@@ -162,12 +162,12 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		
 		// renderar alla characters
 		for(Person person : people) {
-			screen.renderImage(person.getPlayerImage(), (int)person.xPos, (int)person.yPos);
+			screen.renderImage(person.getPlayerImage(), (int)person.xPos, (int)person.yPos, 1, 1);
 		}
 		
 		// rendererar annat som hp bar och text
-		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40);
-		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30);
+		screen.renderImage(boxBild, width - boxBild.getWidth() - ((width - boxBild.getWidth())/2), height - 40, 1, 1);
+		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30, 1, 1);
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.

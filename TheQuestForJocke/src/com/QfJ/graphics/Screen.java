@@ -35,17 +35,28 @@ public class Screen{
 		}
 	}
 	
-	public void renderImage(BufferedImage image, int xPos, int yPos) {
+	public void renderImage(BufferedImage image, int xPos, int yPos, int xZoom, int yZoom) {
 		int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		for(int y = 0; y < image.getHeight(); y++) {
-			if(y < 0 || y >= height) break;
-			for(int x = 0; x < image.getWidth(); x++) {
-				if(x < 0 || x >= width) break;
-				if(pixels[(x + xPos) + (y + yPos) * width] == 0) {
-					pixels[(x + xPos) + (y + yPos) * width] = imagePixels[x + y * image.getWidth()];
+			for(int x = 0; x < image.getWidth(); x++) { 
+				for(int xZoomPosition = 0; xZoomPosition <= xZoom; xZoomPosition++) {
+					if(((x * xZoom) + xPos + xZoomPosition) < 0 || ((x * xZoom) + xPos + xZoomPosition) >= width)  break;
+					for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++) {
+						if(((y * yZoom) + yPos + yZoomPosition) < 0 || ((y * yZoom) + yPos + yZoomPosition) >= height)  break;
+						if(pixels[((x * xZoom) + xPos + xZoomPosition) + ((y * yZoom) + yPos + yZoomPosition) * width] == 0) {
+							setPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
+						}
+					}
 				}
 			}
+		}
+	}
+	
+	private void setPixel(int pixel, int x, int y) {
+		int pixelIndex = x + y * width;
+		if(pixels.length > pixelIndex) {
+			pixels[pixelIndex] = pixel;
 		}
 	}
 }
