@@ -187,7 +187,6 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		
 	//animation
 		xiangeObjekt.move();
-		xiangeObjekt.smile();
 		boxBild = xiangeObjekt.speak(1);
 
 	}

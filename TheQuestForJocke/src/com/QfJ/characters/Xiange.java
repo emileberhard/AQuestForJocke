@@ -9,11 +9,9 @@ public class Xiange extends Person{
 	private TextBox speechBox = new TextBox();
 	private BufferedImage boxImage;
 	private BufferedImage temp;
-	private BufferedImage smileImage;
 	
 	public Xiange(BufferedImage playerImage) {
 		super("Xiange", playerImage);
-		smileImage = Game.loadImage("xiangeSmile.png");
 	}
 	
 	public BufferedImage speak(int voiceLineNum) {
@@ -25,9 +23,5 @@ public class Xiange extends Person{
 			
 		}
 		return boxImage;
-	}
-	
-	public void smile() {
-		playerImage = smileImage;
 	}
 }
