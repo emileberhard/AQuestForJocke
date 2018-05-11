@@ -1,7 +1,7 @@
 package com.QfJ;
 
 public class Rectangle {
-	int x, y, w, h;
+	public int x, y, w, h;
 	int[] pixels;
 	
 	public Rectangle(int x, int y, int w, int h) {

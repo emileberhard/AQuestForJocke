@@ -1,11 +1,11 @@
 package com.QfJ.graphics;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import com.QfJ.characters.Person;
+import com.QfJ.Rectangle;
 
 public class Screen{
 	
@@ -62,9 +62,11 @@ public class Screen{
 	}
 	
 	private void setPixel(int pixel, int x, int y) {
-		int pixelIndex = x + y * width;
-		if(pixels.length > pixelIndex) {
-			pixels[pixelIndex] = pixel;
+		if(x >= camera.x && y >= camera.y && x <= camera.x + camera.w && y <= camera.y + camera.h) {
+			int pixelIndex = x + y * width;
+			if(pixels.length > pixelIndex) {
+				pixels[pixelIndex] = pixel;
+			}
 		}
 	}
 }
