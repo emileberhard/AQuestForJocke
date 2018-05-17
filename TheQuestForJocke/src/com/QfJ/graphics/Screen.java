@@ -19,8 +19,8 @@ public class Screen{
 			pixels = new int[width * height];
 			
 			camera = new Rectangle(0, 0, width, height);
-			camera.x = -100;
-			camera.y = -30;
+			camera.x = 0;
+			camera.y = 0;
 			
 			
 	}
@@ -62,6 +62,7 @@ public class Screen{
 	}
 	
 	private void setPixel(int pixel, int x, int y) {
+		
 		if(x >= camera.x && y >= camera.y && x <= camera.x + camera.w && y <= camera.y + camera.h) {
 			int pixelIndex = x + y * width;
 			if(pixels.length > pixelIndex) {
