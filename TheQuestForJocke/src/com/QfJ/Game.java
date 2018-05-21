@@ -163,14 +163,16 @@ public class Game extends JFrame implements Runnable, KeyListener{
 			}		
 		}
 		
+		// rendererar annat som hp bar och text
+		//screen.renderImage(boxBild, (int)xiangeObjekt.xPos + xiangeObjekt.getWidth(), (int)xiangeObjekt.yPos - boxBild.getHeight(), 1, 1);
+		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30, 1, 1);
+		
 		// renderar alla characters
+
 		for(Person person : people) {
 			screen.renderImage(person.getPlayerImage(), (int)person.xPos, (int)person.yPos, 1, 1);
 		}
 		
-		// rendererar annat som hp bar och text
-		screen.renderImage(boxBild, (int)xiangeObjekt.xPos + xiangeObjekt.getWidth(), (int)xiangeObjekt.yPos - boxBild.getHeight(), 1, 1);
-		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30, 1, 1);
 		screen.render();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
@@ -190,7 +192,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		
 	//animation
 		xiangeObjekt.move();
-		boxBild = xiangeObjekt.speak(1);
+		// boxBild = xiangeObjekt.speak(1);
 
 	}
 
