@@ -22,8 +22,8 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som behï¿½vs
-	public static int height = 500;
-	public static int width = 16 * height / 9;
+	public static final int HEIGHT = 500;
+	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 1;
 	
 	private boolean running = false;
@@ -31,7 +31,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	
 	private Screen screen;
 	private Person[] people = new Person[2];
-	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"), width/2, height/2);
+	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"), WIDTH/2, HEIGHT/2);
 	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"), 60, 70);
 	
 	private Canvas canvas = new Canvas();
@@ -39,12 +39,12 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	private BufferStrategy bs;
 	
 	private BufferedImage boxBild;
-	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	// Konstruktor - Stï¿½ller in JFrame:en och canvas med rï¿½tt storlek och instï¿½llningar. Kï¿½rs nï¿½r ett Game-objekt skapas i main metoden.
 	public Game() {
-		Dimension size = new Dimension(width * scale, height * scale);
+		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
 		
 		setSize(size);
 		setResizable(false);
@@ -55,7 +55,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		setVisible(true);
 		setFocusable(true);
 		
-		screen = new Screen(width, height);
+		screen = new Screen(WIDTH, HEIGHT);
 		canvas.setSize(size);
 		add(canvas);
 		canvas.addKeyListener(this);
@@ -149,7 +149,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 			return;
 		}
 		
-		
+		// clearar skärmen för att stoppa trailing
 		screen.clear();
 
 		// sorterar characters efter deras yPos sÃ¥ att de hamnar rÃ¤tt in terms of foreground/background
@@ -164,13 +164,12 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		}
 		
 		// rendererar annat som hp bar och text
-		//screen.renderImage(boxBild, (int)xiangeObjekt.xPos + xiangeObjekt.getWidth(), (int)xiangeObjekt.yPos - boxBild.getHeight(), 1, 1);
-		screen.renderImage(xiangeObjekt.getHpImage(), 10, height - 30, 1, 1);
+		xiangeObjekt.renderHp(screen);
 		
 		// renderar alla characters
 
 		for(Person person : people) {
-			screen.renderImage(person.getPlayerImage(), (int)person.xPos, (int)person.yPos, 1, 1);
+			person.render(screen);
 		}
 		
 		screen.render();

@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import com.QfJ.*;
+import com.QfJ.graphics.Screen;
 
 public abstract class Person {
 	public int hp = 100;
@@ -35,23 +36,12 @@ public abstract class Person {
 		this.playerImage = playerImage;
 		this.xPos = xPos;
 		this.yPos = yPos;
-	}
-	
-	public BufferedImage getPlayerImage() {
-		return playerImage;
-	}
-	
-	public BufferedImage getHpImage() {
+		
 		hpImage = new BufferedImage(200, 20, BufferedImage.TYPE_INT_RGB);
-		Graphics2D graphics = hpImage.createGraphics();
-		graphics.setPaint(Color.lightGray);
-		graphics.fill(new Rectangle2D.Double(0, 0, hpImage.getWidth(), hpImage.getHeight()));
-		graphics.setPaint(Color.RED);
-		graphics.fill(new Rectangle2D.Double(0, 0, hp * 2, hpImage.getHeight()));
-		graphics.setPaint(Color.WHITE);
-		graphics.setFont(new Font("Arial", Font.PLAIN, 10));
-		graphics.drawString("HP: " + Integer.toString(hp), 13, hpImage.getHeight()/2+4);
-		return hpImage;
+	}
+	
+	public void render(Screen screen) {
+		screen.renderImage(playerImage, (int)xPos, (int)yPos, 1, 1);
 	}
 	
 	public int getWidth(){
@@ -59,6 +49,9 @@ public abstract class Person {
 	}
 	public int getHeight(){
 		return playerImage.getHeight();
+	}
+	public BufferedImage getPlayerImage() {
+		return playerImage;
 	}
 	
 	public void move() {
@@ -96,14 +89,14 @@ public abstract class Person {
 			yPos = 0;
 		} 
 
-		if(yPos > (Game.height - playerImage.getHeight())){
-			yPos = Game.height - playerImage.getHeight();
+		if(yPos > (Game.HEIGHT - playerImage.getHeight())){
+			yPos = Game.HEIGHT - playerImage.getHeight();
 		}
 		if(xPos < 0) {
 			xPos = 0;
 		}
-		if(xPos > (Game.width - playerImage.getWidth())){
-			xPos = Game.width - playerImage.getWidth();
+		if(xPos > (Game.WIDTH - playerImage.getWidth())){
+			xPos = Game.WIDTH - playerImage.getWidth();
 		}
 	}
 }
