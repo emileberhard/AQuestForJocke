@@ -19,12 +19,10 @@ public class Xiange extends Person{
 		super("Xiange", playerImage, xPos, yPos);
 	}
 	
-	public BufferedImage speak(int voiceLineNum) {
-		switch(voiceLineNum) {
-		case 1: boxImage = speechBox.getTextImage("Where's my main man?!");
-			break;
-		}
-		return boxImage;
+	public void speak(String line, Screen screen) {
+		boxImage = speechBox.getTextImage(line);
+
+		screen.renderImage(boxImage, (int)xPos + 50, (int)yPos - 27, 1, 1);
 	}
 	
 	public void render(Screen screen) {

@@ -25,13 +25,13 @@ public class Screen{
 			
 	}
 	
-	public void render() {
+	public void renderBackground() {
 		for(int y = 0; y < height; y++) {
 			if(y < 0 || y >= height) break;
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
 				if(pixels[x + y * width] == 0) {
-					pixels[x + y * width] = Color.lightGray.getRGB();
+					pixels[x + y * width] = Color.PINK.getRGB();
 				}
 			}
 		}

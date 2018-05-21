@@ -143,7 +143,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	private void render() {
 		bs = canvas.getBufferStrategy();
 		
-		// Skapar en bufferstrategy f�r canvas om s�dan ej finns
+		// Skapar en bufferstrategy for canvas om den ej redan finns (alltsa forsta gangen programmer kors)
 		if(bs == null) {
 			canvas.createBufferStrategy(3);
 			return;
@@ -155,13 +155,15 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		// rendererar annat som hp bar och text
 		xiangeObjekt.renderHp(screen);
 		
+		// xiangeObjekt.speak("Where's my main man!?", screen);
+		
 		// renderar alla characters
-
 		for(Person person : people) {
 			person.render(screen);
 		}
 		
-		screen.render();
+		// renderar allting som inte redan ar renderat till gratt
+		screen.renderBackground();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
 		for(int i = 0; i < pixels.length; i++) {
@@ -179,15 +181,14 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	public void update() {
 		
 	//animation
-		xiangeObjekt.move();
-		// boxBild = xiangeObjekt.speak(1);
-		
+	xiangeObjekt.move();
+	
+	// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
 	sortPlayers();
 
 	}
 	
 	public void sortPlayers() {
-		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
 		for(int i = 0; i < people.length; i++) {
 			for(int x = 0; x < people.length - 1; x++) {
 				if(people[x].yPos + people[x].getPlayerImage().getHeight() < people[x+1].yPos + people[x+1].getPlayerImage().getHeight()) {
