@@ -151,17 +151,6 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		
 		// clearar sk�rmen f�r att stoppa trailing
 		screen.clear();
-
-		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
-		for(int i = 0; i < people.length; i++) {
-			for(int x = 0; x < people.length - 1; x++) {
-				if(people[x].yPos + people[x].getPlayerImage().getHeight() < people[x+1].yPos + people[x+1].getPlayerImage().getHeight()) {
-					Person temp = people[x];
-					people[x] = people[x+1];
-					people[x+1] = temp;
-				}
-			}		
-		}
 		
 		// rendererar annat som hp bar och text
 		xiangeObjekt.renderHp(screen);
@@ -192,7 +181,22 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	//animation
 		xiangeObjekt.move();
 		// boxBild = xiangeObjekt.speak(1);
+		
+	sortPlayers();
 
+	}
+	
+	public void sortPlayers() {
+		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
+		for(int i = 0; i < people.length; i++) {
+			for(int x = 0; x < people.length - 1; x++) {
+				if(people[x].yPos + people[x].getPlayerImage().getHeight() < people[x+1].yPos + people[x+1].getPlayerImage().getHeight()) {
+					Person temp = people[x];
+					people[x] = people[x+1];
+					people[x+1] = temp;
+				}
+			}		
+		}
 	}
 
 	public void keyPressed(KeyEvent e) {
