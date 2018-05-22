@@ -35,8 +35,6 @@ public abstract class Person {
 		this.name = name;
 		this.xPos = xPos;
 		this.yPos = yPos;
-		
-		hpImage = new BufferedImage(200, 20, BufferedImage.TYPE_INT_RGB);
 	}
 	
 	public void render(Screen screen) {
@@ -70,12 +68,12 @@ public abstract class Person {
 			if(time < 10) {
 				if(!playerImage.equals(walkLeftImage)) {
 					playerImage = walkLeftImage;
-					xPos -= 9;
+					xPos -= 5;
 				}
 			}else{
 				if(!playerImage.equals(leftImage)) {
 					playerImage = leftImage;
-					xPos += 9;
+					xPos += 5;
 				}
 				if(time > 20) 
 					time = 0;

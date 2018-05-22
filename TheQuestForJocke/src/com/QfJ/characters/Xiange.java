@@ -20,6 +20,7 @@ public class Xiange extends Person{
 		
 		playerImage = Game.loadImage("xiange.png");
 		playerImageTemp = playerImage;
+		hpImage = new BufferedImage(150, 15, BufferedImage.TYPE_INT_RGB);
 
 		leftImage = Game.loadImage("xiangeLeft.png");
 		walkLeftImage = Game.loadImage("xiangeWalkLeft.png");
@@ -38,10 +39,10 @@ public class Xiange extends Person{
 	}
 	
 	public void renderHp(Screen screen) {
-		screen.renderImage(renderHp(), 10, Game.HEIGHT - 30, 1, 1);
+		screen.renderImage(renderHpImage(), 5, Game.HEIGHT - 20, 1, 1);
 	}
 	
-	private BufferedImage renderHp() {
+	private BufferedImage renderHpImage() {
 		Graphics2D graphics = hpImage.createGraphics();
 		graphics.setPaint(Color.lightGray);
 		graphics.fill(new Rectangle2D.Double(0, 0, hpImage.getWidth(), hpImage.getHeight()));

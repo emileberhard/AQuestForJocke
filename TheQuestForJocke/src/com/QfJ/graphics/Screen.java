@@ -63,7 +63,7 @@ public class Screen{
 	private void setPixel(int pixel, int x, int y) {
 		
 		if(x >= camera.x && y >= camera.y && x <= camera.x + camera.w && y <= camera.y + camera.h) {
-			int pixelIndex = x + y * width;
+			int pixelIndex = (x + camera.x) + ((y + camera.y) * width);
 			if(pixels.length > pixelIndex) {
 				pixels[pixelIndex] = pixel;
 			}

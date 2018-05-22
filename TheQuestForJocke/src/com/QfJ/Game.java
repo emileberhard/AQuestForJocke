@@ -22,7 +22,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som behï¿½vs
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 300;
 	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 1;
 	
@@ -148,7 +148,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 			return;
 		}
 		
-		// clearar skärmen för att stoppa trailing
+		// clearar skï¿½rmen fï¿½r att stoppa trailing
 		screen.clear();
 		
 		// rendererar annat som hp bar och text
