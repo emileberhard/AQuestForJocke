@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import com.QfJ.characters.Person;
 import com.QfJ.Rectangle;
 
 public class Screen{

@@ -15,8 +15,16 @@ public class Xiange extends Person{
 	private BufferedImage boxImage;
 	private BufferedImage temp;
 	
-	public Xiange(BufferedImage playerImage, int xPos, int yPos) {
-		super("Xiange", playerImage, xPos, yPos);
+	public Xiange(int xPos, int yPos) {
+		super("Xiange", xPos, yPos);
+		
+		playerImage = Game.loadImage("xiange.png");
+		playerImageTemp = playerImage;
+
+		leftImage = Game.loadImage("xiangeLeft.png");
+		walkLeftImage = Game.loadImage("xiangeWalkLeft.png");
+		rightImage = Game.loadImage("xiangeRight.png");
+		walkRightImage = Game.loadImage("xiangeWalkRight.png");
 	}
 	
 	public void speak(String line, Screen screen) {

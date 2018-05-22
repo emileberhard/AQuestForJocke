@@ -1,11 +1,5 @@
 package com.QfJ.characters;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import com.QfJ.*;
@@ -15,8 +9,9 @@ public abstract class Person {
 	public int hp = 100;
 	public double xPos = 0;
 	public double yPos = 0;
+	private int time = 0;
 	
-	double speed = 6;
+	double speed = 4;
 	double composantSpeed = speed / Math.sqrt(2);
 	
 	public boolean up = false;
@@ -28,12 +23,16 @@ public abstract class Person {
 	public boolean isForeground = false;
 	
 	String name;
-	BufferedImage playerImage;
 	BufferedImage hpImage;
+	BufferedImage playerImage;
+	BufferedImage playerImageTemp;
+	BufferedImage leftImage;
+	BufferedImage rightImage;
+	BufferedImage walkLeftImage;
+	BufferedImage walkRightImage;
 	
-	public Person(String name, BufferedImage playerImage, int xPos, int yPos) {
+	public Person(String name, int xPos, int yPos) {
 		this.name = name;
-		this.playerImage = playerImage;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		
@@ -54,8 +53,43 @@ public abstract class Person {
 		return playerImage;
 	}
 	
-	public void move() {
+	public void animate() {
+		if(right) {
+			if(time < 10) {
+				if(!playerImage.equals(walkRightImage)) {
+					playerImage = walkRightImage;
+				}
+			}else{
+				if(!playerImage.equals(rightImage)) {
+					playerImage = rightImage;
+				}
+				if(time > 20) 
+					time = 0;
+			}
+		}else if(left) {
+			if(time < 10) {
+				if(!playerImage.equals(walkLeftImage)) {
+					playerImage = walkLeftImage;
+					xPos -= 9;
+				}
+			}else{
+				if(!playerImage.equals(leftImage)) {
+					playerImage = leftImage;
+					xPos += 9;
+				}
+				if(time > 20) 
+					time = 0;
+			}
+		}else if(up || down){
+			if(!playerImage.equals(playerImageTemp)) {
+				playerImage = playerImageTemp;
+			}
+		}
 		
+		time++;
+	}
+	
+	public void move() {
 		if(right) {
 			if(up) {
 				xPos += composantSpeed;	

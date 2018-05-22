@@ -31,14 +31,13 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	
 	private Screen screen;
 	private Person[] people = new Person[2];
-	private Xiange xiangeObjekt = new Xiange(loadImage("xiange.png"), WIDTH/2, HEIGHT/2);
-	private Jakob jakobObjekt = new Jakob("Jakob", loadImage("jakob.png"), 60, 70);
+	private Xiange xiangeObjekt = new Xiange(WIDTH/2, HEIGHT/2);
+	private Jakob jakobObjekt = new Jakob(60, 70);
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
 	private BufferStrategy bs;
 	
-	private BufferedImage boxBild;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
@@ -179,13 +178,12 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	
 	// Uppdaterar spelet (player movement, game logic)
 	public void update() {
-		
-	//animation
-	xiangeObjekt.move();
+		//animation
+		xiangeObjekt.move();
+		xiangeObjekt.animate();
 	
-	// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
-	sortPlayers();
-
+		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
+		sortPlayers();
 	}
 	
 	public void sortPlayers() {
