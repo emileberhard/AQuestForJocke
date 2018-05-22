@@ -26,6 +26,8 @@ public class Xiange extends Person{
 		walkLeftImage = Game.loadImage("xiangeWalkLeft.png");
 		rightImage = Game.loadImage("xiangeRight.png");
 		walkRightImage = Game.loadImage("xiangeWalkRight.png");
+		
+		playerRect = new Rectangle(xPos, yPos, playerImage.getWidth(), playerImage.getHeight());
 	}
 	
 	public void speak(String line, Screen screen) {

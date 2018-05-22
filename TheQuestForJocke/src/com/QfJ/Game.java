@@ -22,9 +22,9 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	public static final int HEIGHT = 300;
+	public static final int HEIGHT = 350;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 1;
+	private static int scale = 2;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
@@ -212,9 +212,6 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		if(key == KeyEvent.VK_LEFT) {
 			xiangeObjekt.left = true;
 		}
-		if(key == KeyEvent.VK_S) {
-			xiangeObjekt.smile = true;
-		}
 	}
 	
 	public void keyReleased(KeyEvent e) {
@@ -230,9 +227,6 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		}
 		if(key == KeyEvent.VK_LEFT) {
 			xiangeObjekt.left = false;
-		}
-		if(key == KeyEvent.VK_S) {
-			xiangeObjekt.smile = false;
 		}
 	}	
 	

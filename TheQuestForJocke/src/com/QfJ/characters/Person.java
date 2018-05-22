@@ -11,16 +11,13 @@ public abstract class Person {
 	public double yPos = 0;
 	private int time = 0;
 	
-	double speed = 4;
+	double speed = 2;
 	double composantSpeed = speed / Math.sqrt(2);
 	
 	public boolean up = false;
 	public boolean down = false;
 	public boolean right = false;
 	public boolean left = false;
-	public boolean smile = false;
-	
-	public boolean isForeground = false;
 	
 	String name;
 	BufferedImage hpImage;
@@ -30,6 +27,7 @@ public abstract class Person {
 	BufferedImage rightImage;
 	BufferedImage walkLeftImage;
 	BufferedImage walkRightImage;
+	Rectangle playerRect;
 	
 	public Person(String name, int xPos, int yPos) {
 		this.name = name;
