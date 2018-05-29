@@ -8,8 +8,6 @@ import com.QfJ.graphics.*;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -18,18 +16,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class Game extends JFrame implements Runnable, KeyListener{
+public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	public static final int HEIGHT = 350;
+	public static final int HEIGHT = 160;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 2;
+	private static int scale = 4;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
+	private KeyListenerClass keyListener;
 	private Person[] people = new Person[2];
 	private Xiange xiangeObjekt = new Xiange(WIDTH/2, HEIGHT/2);
 	private Jakob jakobObjekt = new Jakob(60, 70);
@@ -44,20 +43,21 @@ public class Game extends JFrame implements Runnable, KeyListener{
 	// Konstruktor - St�ller in JFrame:en och canvas med r�tt storlek och inst�llningar. K�rs n�r ett Game-objekt skapas i main metoden.
 	public Game() {
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
+		keyListener = new KeyListenerClass(xiangeObjekt);
 		
 		setSize(size);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle(title);
-		addKeyListener(this);
+		addKeyListener(keyListener);
 		setVisible(true);
 		setFocusable(true);
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		canvas.setSize(size);
 		add(canvas);
-		canvas.addKeyListener(this);
+		canvas.addKeyListener(keyListener);
 		canvas.setFocusable(true);
 		pack();
 		
@@ -154,7 +154,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
 		// rendererar annat som hp bar och text
 		xiangeObjekt.renderHp(screen);
 		
-		// xiangeObjekt.speak("Where's my main man!?", screen);
+		// TA EJ BORT xiangeObjekt.speak("Where's my main man!?", screen);
 		
 		// renderar alla characters
 		for(Person person : people) {
@@ -196,41 +196,5 @@ public class Game extends JFrame implements Runnable, KeyListener{
 				}
 			}		
 		}
-	}
-
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		if(key == KeyEvent.VK_UP) {
-			xiangeObjekt.up = true;
-		}
-		if(key == KeyEvent.VK_DOWN) {
-			xiangeObjekt.down = true;
-		}
-		if(key == KeyEvent.VK_RIGHT) {
-			xiangeObjekt.right = true;
-		}
-		if(key == KeyEvent.VK_LEFT) {
-			xiangeObjekt.left = true;
-		}
-	}
-	
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		if(key == KeyEvent.VK_UP) {
-			xiangeObjekt.up = false;
-		}
-		if(key == KeyEvent.VK_DOWN) {
-			xiangeObjekt.down = false;
-		}
-		if(key == KeyEvent.VK_RIGHT) {
-			xiangeObjekt.right = false;
-		}
-		if(key == KeyEvent.VK_LEFT) {
-			xiangeObjekt.left = false;
-		}
-	}	
-	
-	public void keyTyped(KeyEvent e) {
-		
 	}
 }
