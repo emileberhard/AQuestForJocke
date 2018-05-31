@@ -7,8 +7,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class MusicPlayer {
-	public void play(String deantown) throws Exception {
-		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(deantown));
+	public void play(String sound) throws Exception {
+		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Game.class.getClassLoader().getResourceAsStream(sound));
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioInputStream);
 		clip.start();

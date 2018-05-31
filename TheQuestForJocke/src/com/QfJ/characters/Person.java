@@ -11,7 +11,7 @@ public abstract class Person {
 	public double yPos = 0;
 	private int time = 0;
 	
-	double speed = 2;
+	double speed = 3;
 	double composantSpeed = speed / Math.sqrt(2);
 	
 	public boolean up = false;
@@ -38,6 +38,10 @@ public abstract class Person {
 	
 	public void render(Screen screen) {
 		screen.renderImage(playerImage, (int)xPos, (int)yPos, 1, 1);
+	}
+	
+	public void renderHp(Screen screen) {
+		
 	}
 	
 	public int getWidth(){

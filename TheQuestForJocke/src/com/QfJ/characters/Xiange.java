@@ -53,7 +53,7 @@ public class Xiange extends Person{
 		graphics.fill(new Rectangle2D.Double(0, 0, hp * 2, hpImage.getHeight()));
 		graphics.setPaint(Color.WHITE);
 		graphics.setFont(new Font("Arial", Font.PLAIN, 10));
-		graphics.drawString("HP: " + Integer.toString(hp), 13, hpImage.getHeight()/2+4);
+		graphics.drawString("HP: " + Integer.toString(hp), 4, hpImage.getHeight()/2+4);
 		graphics.dispose();
 		return hpImage;
 	}

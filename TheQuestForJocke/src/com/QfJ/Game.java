@@ -20,9 +20,9 @@ public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som behï¿½vs
-	public static final int HEIGHT = 200;
+	public static final int HEIGHT = 600;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 4;
+	private static int scale = 2;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
@@ -30,9 +30,10 @@ public class Game extends JFrame implements Runnable{
 	private Screen screen;
 	private KeyListenerClass keyListener;
 	private Physics physics = new Physics();
+	private MusicPlayer musicPlayer = new MusicPlayer();
 	private Person[] people = new Person[2];
 	private Xiange xiangeObjekt = new Xiange(WIDTH/2, HEIGHT/2);
-	private Jakob jakobObjekt = new Jakob(60, 70);
+	private Jakob jakobObjekt = new Jakob(180, 70);
 	
 	private Canvas canvas = new Canvas();
 	private Thread thread;
@@ -41,11 +42,12 @@ public class Game extends JFrame implements Runnable{
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
-	// Konstruktor - Stï¿½ller in JFrame:en och canvas med rï¿½tt storlek och instï¿½llningar. Kï¿½rs nï¿½r ett Game-objekt skapas i main metoden.
+	// Konstruktor - Staller in JFrame:en och canvas med ratt storlek och installningar. Kors nar ett Game-objekt skapas i main metoden.
 	public Game() {
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
 		keyListener = new KeyListenerClass(xiangeObjekt);
 		
+		// ställer in jframe
 		setSize(size);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +57,7 @@ public class Game extends JFrame implements Runnable{
 		setVisible(true);
 		setFocusable(true);
 		
+		// staller in canvas
 		screen = new Screen(WIDTH, HEIGHT);
 		canvas.setSize(size);
 		add(canvas);
@@ -62,6 +65,12 @@ public class Game extends JFrame implements Runnable{
 		canvas.setFocusable(true);
 		pack();
 		
+		// spela musik
+//		try {
+//			musicPlayer.play("deantown.wav");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public static BufferedImage loadImage(String path) {
@@ -99,7 +108,7 @@ public class Game extends JFrame implements Runnable{
 		}
 	}
 	
-	// Kï¿½rs nï¿½r spel thread:en startas
+	// Kors nar spel thread:en startas
 	public void run() {
 		people[0] = xiangeObjekt;
 		people[1] = jakobObjekt;
@@ -113,8 +122,8 @@ public class Game extends JFrame implements Runnable{
 		double sextioDelsSekund = 1000000000.0 / 60.0;
 		long lastTime = System.nanoTime();
 		
-		// Kï¿½r render och update funktionerna sï¿½ lï¿½nge running = true
-		// Update begrï¿½nsat till 60 fps, Render obegrï¿½nsad
+		// Kor render och update funktionerna sa lange running = true
+		// Update begransat till 60 fps, Render obegansad
 		while(running) {
 			now = System.nanoTime(); 
 			delta += (now - lastTime) / sextioDelsSekund;
@@ -160,6 +169,7 @@ public class Game extends JFrame implements Runnable{
 		// renderar alla characters
 		for(Person person : people) {
 			person.render(screen);
+			person.renderHp(screen);
 		}
 		
 		// renderar allting som inte redan ar renderat till gratt
