@@ -161,7 +161,6 @@ public class Game extends JFrame implements Runnable{
 		// renderar alla characters
 		for(Person person : people) {
 			person.render(screen);
-			person.hitBox.render(Color.CYAN, screen);
 		}
 		
 		// renderar allting som inte redan ar renderat till gratt
@@ -190,11 +189,8 @@ public class Game extends JFrame implements Runnable{
 		
 		// physics (under construction)
 		for(int i = 1 ; i < people.length ; i++) {
-			System.out.println(people[i].name + people[i].hitBox.x + people[i-1].name + people[i-1].hitBox.x);
 			if(physics.isColliding(people[i].hitBox, people[i-1].hitBox)) {
-				people[i].setSpeed(0);
-				people[i-1].setSpeed(0);
-				System.out.println("collision");
+				
 			}
 		}
 	}
