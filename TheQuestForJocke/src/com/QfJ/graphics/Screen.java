@@ -20,8 +20,6 @@ public class Screen{
 			camera = new Rectangle(0, 0, width, height);
 			camera.x = 0;
 			camera.y = 0;
-			
-			
 	}
 	
 	public void renderBackground() {
@@ -30,7 +28,7 @@ public class Screen{
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
 				if(pixels[x + y * width] == 0) {
-					pixels[x + y * width] = Color.PINK.getRGB();
+					setPixel(Color.green.getRGB(), x, y);
 				}
 			}
 		}
@@ -39,6 +37,24 @@ public class Screen{
 	public void clear() {
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
+		}
+	}
+	
+	public void renderStaticImage(BufferedImage image, int xPos, int yPos, int xZoom, int yZoom) {
+		int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		
+		for(int y = 0; y < image.getHeight(); y++) {
+			for(int x = 0; x < image.getWidth(); x++) { 
+				for(int xZoomPosition = 0; xZoomPosition <= xZoom; xZoomPosition++) {
+					if(((x * xZoom) + xPos + xZoomPosition) < 0 || ((x * xZoom) + xPos + xZoomPosition) >= width)  break;
+					for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++) {
+						if(((y * yZoom) + yPos + yZoomPosition) < 0 || ((y * yZoom) + yPos + yZoomPosition) >= height)  break;
+						if(pixels[((x * xZoom) + xPos + xZoomPosition) + ((y * yZoom) + yPos + yZoomPosition) * width] == 0) {
+							setStaticPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -60,13 +76,18 @@ public class Screen{
 		}
 	}
 	
-	private void setPixel(int pixel, int x, int y) {
-		
+	public void setPixel(int pixel, int x, int y) {
 		if(x >= camera.x && y >= camera.y && x <= camera.x + camera.w && y <= camera.y + camera.h) {
-			int pixelIndex = (x + camera.x) + ((y + camera.y) * width);
+			int pixelIndex = (x - camera.x) + ((y - camera.y) * width);
 			if(pixels.length > pixelIndex) {
 				pixels[pixelIndex] = pixel;
 			}
+		}
+	}
+	private void setStaticPixel(int pixel, int x, int y) {
+		int pixelIndex = x + (y * width);
+		if(pixels.length > pixelIndex) {
+			pixels[pixelIndex] = pixel;
 		}
 	}
 }

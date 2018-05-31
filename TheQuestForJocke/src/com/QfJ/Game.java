@@ -6,6 +6,7 @@ import com.QfJ.characters.Xiange;
 import com.QfJ.graphics.*;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -20,7 +21,7 @@ public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	public static final int HEIGHT = 160;
+	public static final int HEIGHT = 200;
 	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 4;
 	
@@ -29,6 +30,7 @@ public class Game extends JFrame implements Runnable{
 	
 	private Screen screen;
 	private KeyListenerClass keyListener;
+	private Physics physics = new Physics();
 	private Person[] people = new Person[2];
 	private Xiange xiangeObjekt = new Xiange(WIDTH/2, HEIGHT/2);
 	private Jakob jakobObjekt = new Jakob(60, 70);
@@ -159,6 +161,7 @@ public class Game extends JFrame implements Runnable{
 		// renderar alla characters
 		for(Person person : people) {
 			person.render(screen);
+			person.hitBox.render(Color.CYAN, screen);
 		}
 		
 		// renderar allting som inte redan ar renderat till gratt
@@ -184,6 +187,16 @@ public class Game extends JFrame implements Runnable{
 	
 		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
 		sortPlayers();
+		
+		// physics (under construction)
+		for(int i = 1 ; i < people.length ; i++) {
+			System.out.println(people[i].name + people[i].hitBox.x + people[i-1].name + people[i-1].hitBox.x);
+			if(physics.isColliding(people[i].hitBox, people[i-1].hitBox)) {
+				people[i].setSpeed(0);
+				people[i-1].setSpeed(0);
+				System.out.println("collision");
+			}
+		}
 	}
 	
 	public void sortPlayers() {

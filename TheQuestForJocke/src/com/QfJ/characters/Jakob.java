@@ -12,6 +12,6 @@ public class Jakob extends Person{
 		
 		playerImage = Game.loadImage("jakob.png");
 		playerImageTemp = playerImage;
-		playerRect = new Rectangle(xPos, yPos, playerImage.getWidth(), playerImage.getHeight());
+		hitBox = new Rectangle(xPos, yPos + this.getHeight() - 20, playerImage.getWidth(), 20);
 	}
 }

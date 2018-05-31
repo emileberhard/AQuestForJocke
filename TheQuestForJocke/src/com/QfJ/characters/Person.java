@@ -19,7 +19,7 @@ public abstract class Person {
 	public boolean right = false;
 	public boolean left = false;
 	
-	String name;
+	public String name;
 	BufferedImage hpImage;
 	BufferedImage playerImage;
 	BufferedImage playerImageTemp;
@@ -27,7 +27,8 @@ public abstract class Person {
 	BufferedImage rightImage;
 	BufferedImage walkLeftImage;
 	BufferedImage walkRightImage;
-	Rectangle playerRect;
+	BufferedImage backImage;
+	public Rectangle hitBox;
 	
 	public Person(String name, int xPos, int yPos) {
 		this.name = name;
@@ -44,6 +45,9 @@ public abstract class Person {
 	}
 	public int getHeight(){
 		return playerImage.getHeight();
+	}
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	public BufferedImage getPlayerImage() {
 		return playerImage;
@@ -76,7 +80,12 @@ public abstract class Person {
 				if(time > 20) 
 					time = 0;
 			}
-		}else if(up || down){
+		}else if(up){
+			if(!playerImage.equals(backImage)) {
+				playerImage = backImage;
+			}
+		}
+		else if(down){
 			if(!playerImage.equals(playerImageTemp)) {
 				playerImage = playerImageTemp;
 			}
@@ -128,5 +137,8 @@ public abstract class Person {
 		if(xPos > (Game.WIDTH - playerImage.getWidth())){
 			xPos = Game.WIDTH - playerImage.getWidth();
 		}
+		hitBox.y = ((int)yPos + this.getHeight()) - 20;
+		hitBox.x = (int) xPos;
+		hitBox.w = playerImage.getWidth();
 	}
 }

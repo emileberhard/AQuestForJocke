@@ -26,8 +26,9 @@ public class Xiange extends Person{
 		walkLeftImage = Game.loadImage("xiangeWalkLeft.png");
 		rightImage = Game.loadImage("xiangeRight.png");
 		walkRightImage = Game.loadImage("xiangeWalkRight.png");
+		backImage = Game.loadImage("xiangeBack.png");
 		
-		playerRect = new Rectangle(xPos, yPos, playerImage.getWidth(), playerImage.getHeight());
+		hitBox = new Rectangle(xPos, yPos + this.getHeight() - 20, playerImage.getWidth(), 20);
 	}
 	
 	public void speak(String line, Screen screen) {
@@ -41,7 +42,7 @@ public class Xiange extends Person{
 	}
 	
 	public void renderHp(Screen screen) {
-		screen.renderImage(renderHpImage(), 5, Game.HEIGHT - 20, 1, 1);
+		screen.renderStaticImage(renderHpImage(), 5, Game.HEIGHT - 20, 1, 1);
 	}
 	
 	private BufferedImage renderHpImage() {
