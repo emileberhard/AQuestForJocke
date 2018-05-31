@@ -20,7 +20,7 @@ public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som beh�vs
-	public static final int HEIGHT = 600;
+	public static final int HEIGHT = 500;
 	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 2;
 	
@@ -66,11 +66,11 @@ public class Game extends JFrame implements Runnable{
 		pack();
 		
 		// spela musik
-//		try {
-//			musicPlayer.play("deantown.wav");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			musicPlayer.play("deantown.wav");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static BufferedImage loadImage(String path) {
