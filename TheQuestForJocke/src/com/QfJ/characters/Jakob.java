@@ -22,7 +22,7 @@ public class Jakob extends Person{
 	}
 	
 	public void renderHp(Screen screen) {
-		screen.renderStaticImage(renderHpImage(), (int)xPos + playerImage.getWidth()/2 - hpImage.getWidth()/2, (int)yPos - 12, 1, 1);
+		screen.renderImage(renderHpImage(), (int)xPos + playerImage.getWidth()/2 - hpImage.getWidth()/2, (int)yPos - 12, 1, 1);
 	}
 	
 	private BufferedImage renderHpImage() {

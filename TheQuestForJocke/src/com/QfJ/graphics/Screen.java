@@ -27,9 +27,7 @@ public class Screen{
 			if(y < 0 || y >= height) break;
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
-				if(pixels[x + y * width] == 0) {
-					setPixel(Color.green.getRGB(), x, y);
-				}
+				setPixel(Color.green.getRGB(), x, y);
 			}
 		}
 	}
@@ -49,9 +47,7 @@ public class Screen{
 					if(((x * xZoom) + xPos + xZoomPosition) < 0 || ((x * xZoom) + xPos + xZoomPosition) >= width)  break;
 					for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++) {
 						if(((y * yZoom) + yPos + yZoomPosition) < 0 || ((y * yZoom) + yPos + yZoomPosition) >= height)  break;
-						if(pixels[((x * xZoom) + xPos + xZoomPosition) + ((y * yZoom) + yPos + yZoomPosition) * width] == 0) {
-							setStaticPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
-						}
+						setStaticPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
 					}
 				}
 			}
@@ -67,9 +63,7 @@ public class Screen{
 					if(((x * xZoom) + xPos + xZoomPosition) < 0 || ((x * xZoom) + xPos + xZoomPosition) >= width)  break;
 					for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++) {
 						if(((y * yZoom) + yPos + yZoomPosition) < 0 || ((y * yZoom) + yPos + yZoomPosition) >= height)  break;
-						if(pixels[((x * xZoom) + xPos + xZoomPosition) + ((y * yZoom) + yPos + yZoomPosition) * width] == 0) {
-							setPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
-						}
+						setPixel(imagePixels[x + y * image.getWidth()], (x * xZoom) + xPos + xZoomPosition, (y * yZoom) + yPos + yZoomPosition);
 					}
 				}
 			}
@@ -80,14 +74,16 @@ public class Screen{
 		if(x >= camera.x && y >= camera.y && x <= camera.x + camera.w && y <= camera.y + camera.h) {
 			int pixelIndex = (x - camera.x) + ((y - camera.y) * width);
 			if(pixels.length > pixelIndex) {
-				pixels[pixelIndex] = pixel;
+				if(pixels[pixelIndex] == 0)
+					pixels[pixelIndex] = pixel;
 			}
 		}
 	}
 	private void setStaticPixel(int pixel, int x, int y) {
 		int pixelIndex = x + (y * width);
 		if(pixels.length > pixelIndex) {
-			pixels[pixelIndex] = pixel;
+			if(pixels[pixelIndex] == 0)
+				pixels[pixelIndex] = pixel;
 		}
 	}
 }
