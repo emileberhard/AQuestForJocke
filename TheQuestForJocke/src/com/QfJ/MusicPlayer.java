@@ -11,9 +11,9 @@ public class MusicPlayer {
 	public void play(String sound) throws Exception {
 		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Game.class.getClassLoader().getResourceAsStream(sound));
 		Clip clip = AudioSystem.getClip();
-		clip.open(audioInputStream);
-		clip.start();
+		clip.open(audioInputStream);	
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		gainControl.setValue(-25.0f);
+		gainControl.setValue(-23.0f);
+		clip.start();
 	}
 }

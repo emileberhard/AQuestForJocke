@@ -20,7 +20,7 @@ public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	// Variabler och objekt som behï¿½vs
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 450;
 	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 2;
 	
@@ -47,7 +47,7 @@ public class Game extends JFrame implements Runnable{
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
 		keyListener = new KeyListenerClass(xiangeObjekt);
 		
-		// ställer in jframe
+		// stï¿½ller in jframe
 		setSize(size);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
