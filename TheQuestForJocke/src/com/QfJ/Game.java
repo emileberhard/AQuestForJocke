@@ -19,7 +19,7 @@ import javax.swing.JFrame;
 public class Game extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
-	// Variabler och objekt som beh�vs
+	// Variabler och objekt som behovs
 	public static final int HEIGHT = 450;
 	public static final int WIDTH = 16 * HEIGHT / 9;
 	private static int scale = 2;
@@ -47,7 +47,7 @@ public class Game extends JFrame implements Runnable{
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
 		keyListener = new KeyListenerClass(xiangeObjekt);
 		
-		// st�ller in jframe
+		// staller in jframe
 		setSize(size);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +85,7 @@ public class Game extends JFrame implements Runnable{
 		}		
 	}
 	
-	// Main metod. H�r "b�rjar" koden.
+	// Main metod. Har "borjar" koden.
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
@@ -123,7 +123,7 @@ public class Game extends JFrame implements Runnable{
 		long lastTime = System.nanoTime();
 		
 		// Kor render och update funktionerna sa lange running = true
-		// Update begransat till 60 fps, Render obegansad
+		// Update begransat till 60 fps, Render obegransad
 		while(running) {
 			now = System.nanoTime(); 
 			delta += (now - lastTime) / sextioDelsSekund;
@@ -158,7 +158,7 @@ public class Game extends JFrame implements Runnable{
 			return;
 		}
 		
-		// clearar sk�rmen f�r att stoppa trailing
+		// clearar skarmen for att stoppa trailing
 		screen.clear();
 		
 		// rendererar annat som hp bar och text
