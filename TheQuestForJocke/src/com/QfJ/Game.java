@@ -22,7 +22,7 @@ public class Game extends JFrame implements Runnable{
 	// Variabler och objekt som behovs
 	public static final int HEIGHT = 450;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 2;
+	private static int scale = 1;
 	
 	private boolean running = false;
 	private String title = "Quest for Jocke";
