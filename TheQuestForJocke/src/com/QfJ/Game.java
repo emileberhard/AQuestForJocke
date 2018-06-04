@@ -180,7 +180,7 @@ public class Game extends JFrame implements Runnable{
 			pixels[i] = screen.pixels[i];
 		}
 		
-		// Renderar och visar pixel[] arrayen som inneh�ller en f�rg f�r varje pixel i form av en hexadecimal, dvs ett nummer.
+		// Renderar och visar pixel[] arrayen som innehaller en farg for varje pixel i form av en hexadecimal, dvs ett nummer.
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 		g.dispose();
@@ -193,7 +193,7 @@ public class Game extends JFrame implements Runnable{
 		xiangeObjekt.move();
 		xiangeObjekt.animate();
 	
-		// sorterar characters efter deras yPos så att de hamnar rätt in terms of foreground/background
+		// sorterar characters efter deras yPos sa att de hamnar ratt in terms of foreground/background
 		sortPlayers();
 		
 		// physics (under construction)
