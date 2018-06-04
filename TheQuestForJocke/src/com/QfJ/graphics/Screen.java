@@ -11,12 +11,14 @@ public class Screen{
 	private int width, height;
 	private Rectangle camera;
 	public int[] pixels;
+	public int backgroundColor = Color.green.getRGB();
+
 	
 	public Screen(int width, int height) {
 			this.width = width;
 			this.height = height;
 			pixels = new int[width * height];
-			
+						
 			camera = new Rectangle(0, 0, width, height);
 			camera.x = 0;
 			camera.y = 0;
@@ -27,7 +29,7 @@ public class Screen{
 			if(y < 0 || y >= height) break;
 			for(int x = 0; x < width; x++) {
 				if(x < 0 || x >= width) break;
-				setPixel(Color.green.getRGB(), x, y);
+				setPixel(backgroundColor, x, y);
 			}
 		}
 	}

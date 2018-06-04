@@ -28,7 +28,7 @@ public class Game extends JFrame implements Runnable{
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
-	private KeyListenerClass keyListener;
+	private ActionHandler actionHandler;
 	private Physics physics = new Physics();
 	private MusicPlayer musicPlayer = new MusicPlayer();
 	private Person[] people = new Person[2];
@@ -45,7 +45,8 @@ public class Game extends JFrame implements Runnable{
 	// Konstruktor - Staller in JFrame:en och canvas med ratt storlek och installningar. Kors nar ett Game-objekt skapas i main metoden.
 	public Game() {
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
-		keyListener = new KeyListenerClass(xiangeObjekt);
+		screen = new Screen(WIDTH, HEIGHT);
+		actionHandler = new ActionHandler(xiangeObjekt, screen);
 		
 		// staller in jframe
 		setSize(size);
@@ -53,15 +54,15 @@ public class Game extends JFrame implements Runnable{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle(title);
-		addKeyListener(keyListener);
+		addKeyListener(actionHandler);
 		setVisible(true);
 		setFocusable(true);
 		
 		// staller in canvas
-		screen = new Screen(WIDTH, HEIGHT);
 		canvas.setSize(size);
 		add(canvas);
-		canvas.addKeyListener(keyListener);
+		canvas.addKeyListener(actionHandler);
+		canvas.addMouseListener(actionHandler);
 		canvas.setFocusable(true);
 		pack();
 		

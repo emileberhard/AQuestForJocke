@@ -1,16 +1,22 @@
 package com.QfJ;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import com.QfJ.characters.Xiange;
+import com.QfJ.graphics.Screen;
 
-public class KeyListenerClass implements KeyListener{
+public class ActionHandler implements KeyListener, MouseListener{
 	
 	Xiange xiangeObjekt;
+	Screen screen;
 	
-	public KeyListenerClass(Xiange xiangeObjekt){
+	public ActionHandler(Xiange xiangeObjekt, Screen screen){
 		this.xiangeObjekt = xiangeObjekt;
+		this.screen = screen;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -46,6 +52,33 @@ public class KeyListenerClass implements KeyListener{
 	}	
 	
 	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getY() < 10) {
+			screen.backgroundColor = Color.BLUE.getRGB();
+			System.out.println("mouseactivated");
+		}
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		screen.backgroundColor = Color.YELLOW.getRGB();
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
