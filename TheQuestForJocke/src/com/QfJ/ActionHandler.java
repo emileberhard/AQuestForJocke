@@ -56,29 +56,22 @@ public class ActionHandler implements KeyListener, MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getY() < 10) {
-			screen.backgroundColor = Color.BLUE.getRGB();
-			System.out.println("mouseactivated");
-		}
+		
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		screen.backgroundColor = Color.YELLOW.getRGB();
+		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 }

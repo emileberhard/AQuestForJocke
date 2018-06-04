@@ -20,8 +20,8 @@ public class Screen{
 			pixels = new int[width * height];
 						
 			camera = new Rectangle(0, 0, width, height);
-			camera.x = 0;
-			camera.y = 0;
+			camera.x = 60;
+			camera.y = 20;
 	}
 	
 	public void renderBackground() {
