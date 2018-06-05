@@ -23,7 +23,7 @@ public class Game extends JFrame implements Runnable{
 	// Variabler och objekt som behovs
 	public static final int HEIGHT = 450;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 2;
+	public static final int SCALE = 1;
 	
 	boolean running = false;
 	boolean menuActive = true;
@@ -47,7 +47,7 @@ public class Game extends JFrame implements Runnable{
 	
 	// Konstruktor - Staller in JFrame:en och canvas med ratt storlek och installningar. Kors nar ett Game-objekt skapas i main metoden.
 	public Game() {
-		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
+		Dimension size = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 		screen = new Screen(WIDTH, HEIGHT);
 		
 		// staller in jframe

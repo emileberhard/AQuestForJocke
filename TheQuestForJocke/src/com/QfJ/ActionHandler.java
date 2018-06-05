@@ -67,8 +67,8 @@ public class ActionHandler implements KeyListener, MouseListener, MouseMotionLis
 	}
 
 	public void mousePressed(MouseEvent e) {
-		int xPos = e.getX()/2;
-		int yPos = e.getY()/2;
+		int xPos = e.getX()/Game.SCALE;
+		int yPos = e.getY()/Game.SCALE;
 		
 		if(game.menuActive) {
 			if(menu.playButton.isPressed(xPos, yPos)){
@@ -94,8 +94,8 @@ public class ActionHandler implements KeyListener, MouseListener, MouseMotionLis
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		int xPos = e.getX()/2;
-		int yPos = e.getY()/2;
+		int xPos = e.getX()/Game.SCALE;
+		int yPos = e.getY()/Game.SCALE;
 		
 		if(game.menuActive) {
 			if(menu.playButton.isHovered(xPos, yPos)){
