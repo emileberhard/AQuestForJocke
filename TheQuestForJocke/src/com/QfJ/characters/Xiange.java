@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import com.QfJ.*;
+import com.QfJ.UI.SpeechBox;
 import com.QfJ.graphics.Screen;
 
 public class Xiange extends Person{

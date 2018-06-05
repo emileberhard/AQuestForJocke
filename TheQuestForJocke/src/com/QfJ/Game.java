@@ -1,5 +1,6 @@
 package com.QfJ;
 
+import com.QfJ.UI.StartMenu;
 import com.QfJ.characters.Jakob;
 import com.QfJ.characters.Person;
 import com.QfJ.characters.Xiange;
@@ -22,15 +23,17 @@ public class Game extends JFrame implements Runnable{
 	// Variabler och objekt som behovs
 	public static final int HEIGHT = 450;
 	public static final int WIDTH = 16 * HEIGHT / 9;
-	private static int scale = 1;
+	private static int scale = 2;
 	
-	private boolean running = false;
+	boolean running = false;
+	boolean menuActive = true;
 	private String title = "Quest for Jocke";
 	
 	private Screen screen;
 	private ActionHandler actionHandler;
 	private Physics physics = new Physics();
 	private MusicPlayer musicPlayer = new MusicPlayer();
+	private StartMenu menu;
 	private Person[] people = new Person[2];
 	private Xiange xiangeObjekt = new Xiange(WIDTH/2, HEIGHT/2);
 	private Jakob jakobObjekt = new Jakob(180, 70);
@@ -46,7 +49,6 @@ public class Game extends JFrame implements Runnable{
 	public Game() {
 		Dimension size = new Dimension(WIDTH * scale, HEIGHT * scale);
 		screen = new Screen(WIDTH, HEIGHT);
-		actionHandler = new ActionHandler(xiangeObjekt, screen);
 		
 		// staller in jframe
 		setSize(size);
@@ -54,17 +56,20 @@ public class Game extends JFrame implements Runnable{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle(title);
-		addKeyListener(actionHandler);
 		setVisible(true);
 		setFocusable(true);
+		
+		menu = new StartMenu(screen, this, actionHandler);
+		actionHandler = new ActionHandler(xiangeObjekt, screen, menu, this);
 		
 		// staller in canvas
 		canvas.setSize(size);
 		add(canvas);
+		pack();
 		canvas.addKeyListener(actionHandler);
 		canvas.addMouseListener(actionHandler);
+		canvas.addMouseMotionListener(actionHandler);
 		canvas.setFocusable(true);
-		pack();
 		
 		// spela musik
 		try {
@@ -162,19 +167,23 @@ public class Game extends JFrame implements Runnable{
 		// clearar skarmen for att stoppa trailing
 		screen.clear();
 		
-		// rendererar annat som hp bar och text
-		xiangeObjekt.renderHp(screen);
-		
-		// TA EJ BORT xiangeObjekt.speak("Where's my main man!?", screen);
-		
-		// renderar alla characters
-		for(Person person : people) {
-			person.render(screen);
-			person.renderHp(screen);
+		if(!menuActive) {
+			// rendererar annat som hp bar och text
+			xiangeObjekt.renderHp(screen);
+			
+			// TA EJ BORT xiangeObjekt.speak("Where's my main man!?", screen);
+			
+			// renderar alla characters
+			for(Person person : people) {
+				person.render(screen);
+				person.renderHp(screen);
+			}
+			
+			// renderar allting som inte redan ar renderat till gratt
+			screen.renderBackground();
+		}else {
+			menu.renderMenu();
 		}
-		
-		// renderar allting som inte redan ar renderat till gratt
-		screen.renderBackground();
 
 		// Satter pixlarna i screen klassen lika med de i denna klassen, eftersom den faktiska renderingen har sker dar.
 		for(int i = 0; i < pixels.length; i++) {

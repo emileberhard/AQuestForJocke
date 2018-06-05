@@ -1,21 +1,28 @@
 package com.QfJ;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
+import com.QfJ.UI.StartMenu;
 import com.QfJ.characters.Xiange;
 import com.QfJ.graphics.Screen;
 
-public class ActionHandler implements KeyListener, MouseListener{
-	
+public class ActionHandler implements KeyListener, MouseListener, MouseMotionListener{
 	Xiange xiangeObjekt;
+	Game game;
+	StartMenu menu;
 	Screen screen;
 	
-	public ActionHandler(Xiange xiangeObjekt, Screen screen){
+	boolean mouseEntered;
+	
+	public ActionHandler(Xiange xiangeObjekt, Screen screen, StartMenu menu, Game game){
 		this.xiangeObjekt = xiangeObjekt;
+		this.menu = menu;
+		this.game = game;
+		
 		this.screen = screen;
 	}
 	
@@ -56,29 +63,46 @@ public class ActionHandler implements KeyListener, MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getY() < 10) {
-			screen.backgroundColor = Color.BLUE.getRGB();
-			System.out.println("mouseactivated");
+		int xPos = e.getX()/2;
+		int yPos = e.getY()/2;
+		
+		if(game.menuActive) {
+			if(menu.playButton.isPressed(xPos, yPos)){
+				game.menuActive = false;
+			}
 		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		screen.backgroundColor = Color.YELLOW.getRGB();
+		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	public void mouseDragged(MouseEvent e) {
+		
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		int xPos = e.getX()/2;
+		int yPos = e.getY()/2;
+		
+		if(game.menuActive) {
+			if(menu.playButton.isHovered(xPos, yPos)){
+				menu.playButton.setHovered(true);
+			}else {
+				menu.playButton.setHovered(false);
+			}
+		}
 	}
 }

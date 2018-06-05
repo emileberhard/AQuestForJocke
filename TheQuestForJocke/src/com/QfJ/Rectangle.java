@@ -28,4 +28,11 @@ public class Rectangle {
 			}
 		}
 	}
+	
+	public void setWidth(int w) {
+		this.w = w;
+	}
+	public void setHeight(int h) {
+		this.h= h;
+	}
 }

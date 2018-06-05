@@ -1,4 +1,4 @@
-package com.QfJ;
+package com.QfJ.UI;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -19,16 +19,21 @@ public class SpeechBox {
 		FontMetrics fm = c.getFontMetrics(font);
 		int textLength = fm.stringWidth(text);
 		Rectangle2D textBounds = fm.getStringBounds(text, c.getGraphics());
+		
 		width = (int) (textBounds.getWidth()) + ((int) (textBounds.getWidth())/10);
 		height = (int) (textBounds.getHeight() + 9);
 		textBox = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		
 		Graphics2D graphics = textBox.createGraphics();
+		
 		graphics.setColor(Color.WHITE);
 		graphics.fill(new RoundRectangle2D.Double(0, 0, width, height, 10, 10));
 		graphics.setColor(Color.BLACK);
 		graphics.draw(new RoundRectangle2D.Double(0, 0, width-1, height-1, 10, 10));
 		graphics.setFont(font);
 		graphics.drawString(text, width - textLength - ((width - textLength)/2), height/2 + ((int) textBounds.getHeight()/2) - height/15);
+		
+		graphics.dispose();
 		return textBox;
 	}
 }
